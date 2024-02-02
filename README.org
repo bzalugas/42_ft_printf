@@ -1,0 +1,2 @@
+* 42's ft_printf project
+This project is about recoding printf function. The main notion to learn is variadic arguments.
