@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdarg.h>
 
 typedef struct flags
 {
@@ -10,6 +11,23 @@ typedef struct flags
 #define SHARP 0x2
 #define PLUS 0x4
 #define MINUS 0x8
+
+void	fct(char *str, ...)
+{
+	va_list l;
+	va_list l2;
+
+	va_start(l, str);
+	printf("1: %s\n", va_arg(l, char *));
+	va_copy(l2, l);
+	int n;
+	for (int i = 0; i < 3; i++)
+		n = va_arg(l2, int);
+	printf("asked param = %d\n", n);
+	printf("2: %s\n", va_arg(l, char *));
+	va_end(l);
+	va_end(l2);
+}
 
 int	main(void)
 {
@@ -24,17 +42,6 @@ int	main(void)
 	f.minus |= c2 == '-';
 	f.sharp |= c2 == '#';
 	f.sharp &= !f.plus;
-	printf("flags status :\nsharp:%d, plus:%d, minus:%d\n", f.sharp, f.plus, f.minus);
-	printf("size = %lu\n", sizeof(f));
-
-	char infos = 0;
-	infos = ((c == '-' || c2 == '-') << 3) | (c == '+' || c2 == '+') << 2 | (c == '#' || c2 == '#') << 1;
-	printf("%#2x\n", infos);
-	if (infos & PLUS && infos & SHARP)
-		infos ^= SHARP;
-	printf("%#2x\n", infos);
-	for (int i = 7; i >= 0; i--)
-		printf("%d ", (infos >> i)&0x1);
-	printf("\n");
+	fct("blabla", "str1", "str2", "str3", 8);
 	return 0;
 }
