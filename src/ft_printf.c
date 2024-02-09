@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 23:39:50 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/09 06:23:44 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/09 06:49:28 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,15 @@ static t_flags	*get_flags(char *format, size_t *i, va_list args)
 			flags->width = handle_flag_nb(format, i, args);
 		else if (ft_isdigit(format[*i]) && format[*i] != '0')
 		{
-			flags->min_width = 1;
-			if (flags->minus || flags->min_width)
-				flags->width = ft_atoi(&format[*i]);
-			else if (flags->dot || flags->zero)
+			if (flags->dot || flags->zero)
 				flags->pad = ft_atoi(&format[*i]);
+			else
+				flags->width = ft_atoi(&format[*i]);
 			while (format[*i] && ft_isdigit(format[*i]))
 				(*i)++;
 		}
-		(*i)++;
+		else
+			(*i)++;
 	}
 	return (flags);
 }
@@ -127,6 +127,7 @@ int		ft_printf(const char *format, ...)
 		tmp = tmp->next;
 	}
 	free(str);
+	buff_clear(&buf);
 	va_end(args);
 	return (0);
 }

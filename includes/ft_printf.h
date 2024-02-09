@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:39:36 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/09 06:07:36 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/09 06:38:39 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ struct s_flags
 	unsigned char	sharp:1;
 	unsigned char	space:1;
 	unsigned char	plus:1;
-	unsigned char	min_width:1; // to remove ?
-	int				width; // for min_width, minus
+	int				width; // for min_width, minus (if width set but not minus,
+						   // this is for min_width)
 	int				pad; // for dot, zero
 };
 
