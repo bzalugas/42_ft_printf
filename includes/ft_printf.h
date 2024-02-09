@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:39:36 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/09 07:59:59 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/09 09:36:45 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ typedef enum e_type
 	PERCENT
 }			t_type;
 
+/* width is used for min_width & minus flags
+ * pad for dot & 0 flags
+ * if width set but minus off, width is for min_width */
+
 struct s_flags
 {
 	unsigned char	minus:1;
@@ -43,9 +47,8 @@ struct s_flags
 	unsigned char	sharp:1;
 	unsigned char	space:1;
 	unsigned char	plus:1;
-	int				width; // for min_width, minus (if width set but not minus,
-						   // this is for min_width)
-	int				pad; // for dot, zero
+	int				width;
+	int				pad;
 };
 
 struct s_buffer
