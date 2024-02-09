@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:39:36 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/09 07:06:22 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/09 07:59:59 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,10 @@ struct s_buffer
 t_buffer	*buff_new(void *content, size_t len, t_type type);
 void		buff_add_back(t_buffer **buff, t_buffer *new);
 void		*buff_clear(t_buffer **buff);
+
+/************************* FLAGS PARSING FUNCTIONS ****************************/
+
+void		get_flags(t_flags **flags, char *str, size_t *i, va_list args);
 
 /****************************** UTILS FUNCTIONS *******************************/
 
