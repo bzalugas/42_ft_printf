@@ -6,24 +6,22 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 23:39:50 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/09 06:09:23 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/09 06:23:44 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-static int	handle_flag_nb(char *format, va_list args)
+static int	handle_flag_nb(char *format, size_t *i, va_list args)
 {
 	va_list		tmp;
-	size_t		i;
 	int			nb;
 	int			n_arg;
 
 	n_arg = ft_atoi(format);
-	i = 0;
-	while (format[i] && ft_isdigit(format[i]))
-		i++;
-	if (!format[i] || format[i] != '$')
+	while (format[*i] && ft_isdigit(format[*i]))
+		(*i)++;
+	if (!format[*i] || format[*i] != '$')
 		return (-1);
 	va_copy(tmp, args);
 	nb = -1;
@@ -50,9 +48,9 @@ static t_flags	*get_flags(char *format, size_t *i, va_list args)
 		flags->space |= format[*i] == ' ';
 		flags->plus |= format[*i] == '+';
 		if (format[*i] == '*' && flags->dot)
-			flags->pad = handle_flag_nb(&format[++(*i)], args);
+			flags->pad = handle_flag_nb(format, i, args);
 		else if (format[*i] == '*')
-			flags->width = handle_flag_nb(&format[++(*i)], args);
+			flags->width = handle_flag_nb(format, i, args);
 		else if (ft_isdigit(format[*i]) && format[*i] != '0')
 		{
 			flags->min_width = 1;
@@ -60,9 +58,10 @@ static t_flags	*get_flags(char *format, size_t *i, va_list args)
 				flags->width = ft_atoi(&format[*i]);
 			else if (flags->dot || flags->zero)
 				flags->pad = ft_atoi(&format[*i]);
+			while (format[*i] && ft_isdigit(format[*i]))
+				(*i)++;
 		}
-		while (format[*i] && ft_isdigit(format[*i]))
-			(*i)++;
+		(*i)++;
 	}
 	return (flags);
 }
