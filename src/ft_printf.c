@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 23:39:50 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/09 08:00:35 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/09 19:31:38 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,31 +40,33 @@ static t_buffer	*tokenize(char *str, va_list args)
 		if (str[i] == '%')
 		{
 			str[i] = '\0';
-			buff_add_back(&buf, buff_new((char *)str, i++, LIT));
+			buff_add_back(&buf, buff_new(LIT, i++, str));
 			flags = flags_init();
 			get_flags(&flags, str, &i, args);
 			if (!ft_strchr(SPECIFIERS, str[i]))
 				return (buff_clear(&buf));
-			buff_add_back(&buf, buff_new(flags, 0, get_type(str[i])));
+			buff_add_back(&buf, buff_new(get_type(str[i]), 0, flags));
 			str += i + 1;
 			i = (size_t) - 1;
 		}
 		i++;
 	}
 	if (i > 0)
-		buff_add_back(&buf, buff_new((char *)str, i, LIT));
+		buff_add_back(&buf, buff_new(LIT, i, str));
 	return (buf);
 }
 #include <stdio.h>
 void	print_buff(t_buffer *buf)
 {
+	printf("total len = %lu\n", buff_update_len(0));
 	while (buf)
 	{
 		if (buf->type == LIT)
 			write(1, buf->content, buf->len);
 		else
 		{
-			printf("<%d %d %d %d %d %d %d %d>", ((t_flags*)buf->content)->minus,
+			printf("<-:%d 0:%d .:%d #:%d s:%d +:%d w:%d p:%d>",
+				((t_flags*)buf->content)->minus,
 				((t_flags*)buf->content)->zero, ((t_flags*)buf->content)->dot,
 				((t_flags*)buf->content)->sharp, ((t_flags*)buf->content)->space,
 				((t_flags*)buf->content)->plus, ((t_flags*)buf->content)->width,

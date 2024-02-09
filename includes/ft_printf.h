@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:39:36 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/09 09:36:45 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/09 19:27:24 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@
 # include "../libft/libft.h"
 
 /*********************************** STRUCTS **********************************/
-
-typedef struct s_buffer	t_buffer;
-typedef struct s_flags	t_flags;
 
 typedef enum e_type
 {
@@ -39,7 +36,7 @@ typedef enum e_type
  * pad for dot & 0 flags
  * if width set but minus off, width is for min_width */
 
-struct s_flags
+typedef struct s_flags
 {
 	unsigned char	minus:1;
 	unsigned char	zero:1;
@@ -49,21 +46,22 @@ struct s_flags
 	unsigned char	plus:1;
 	int				width;
 	int				pad;
-};
+}				t_flags;
 
-struct s_buffer
+typedef struct s_buffer
 {
-	t_type		type;
-	size_t		len;
-	void		*content;
-	t_buffer	*next;
-};
+	t_type			type;
+	size_t			len;
+	void			*content;
+	struct s_buffer	*next;
+}				t_buffer;
 
 /****************************** BUFFER FUNCTIONS ******************************/
 
-t_buffer	*buff_new(void *content, size_t len, t_type type);
+t_buffer	*buff_new(t_type type, size_t len, void *content);
 void		buff_add_back(t_buffer **buff, t_buffer *new);
 void		*buff_clear(t_buffer **buff);
+size_t		buff_update_len(size_t to_add);
 
 /************************* FLAGS PARSING FUNCTIONS ****************************/
 
