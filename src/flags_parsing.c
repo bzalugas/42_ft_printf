@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 07:57:58 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/09 07:58:36 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/09 08:07:23 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	char_to_flags(t_flags *flags, char c)
 {
 	flags->minus |= c == '-';
 	flags->zero |= c == '0';
+	flags->zero &= !flags->minus;
 	flags->dot |= c == '.';
 	flags->sharp |= c == '#';
 	flags->space |= c == ' ';
