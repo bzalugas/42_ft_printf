@@ -6,22 +6,35 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:39:36 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/08 18:44:01 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/09 04:09:39 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
-# define CONVERSIONS "cspdiuxX%"
-# define FLAGS "-0.# +"
+# define SPECIFIERS "cspdiuxX%"
+# define FLAGS "-0.# +*"
 # include <unistd.h>
 # include <stdarg.h>
 # include <stdlib.h>
+# include "../libft/libft.h"
 
 /*********************************** STRUCTS **********************************/
 
 typedef struct s_buffer	t_buffer;
 typedef struct s_flags	t_flags;
+typedef enum e_type		t_type;
+
+enum e_type
+{
+	LIT,
+	CHAR,
+	STR,
+	INT,
+	UINT,
+	PTR,
+	PERCENT
+};
 
 struct s_flags
 {
@@ -31,27 +44,27 @@ struct s_flags
 	unsigned char	sharp:1;
 	unsigned char	space:1;
 	unsigned char	plus:1;
-	unsigned char	min_width:1; // ?
-	int				width;
-	int				pad;
+	unsigned char	min_width:1; // to remove ?
+	int				width; // for min_width, minus
+	int				pad; // for dot, zero
 };
 
 struct s_buffer
 {
-	char		*str;
+	void		*content;
 	size_t		len;
+	t_type		type;
 	t_buffer	*next;
 };
 
 /****************************** BUFFER FUNCTIONS ******************************/
 
-t_buffer	*buff_new(char	*str, size_t len);
+t_buffer	*buff_new(void *content, size_t len, t_type type);
 void		buff_add_back(t_buffer **buff, t_buffer *new);
-void		buff_clear(t_buffer **buff);
+void		*buff_clear(t_buffer **buff);
 
 /****************************** UTILS FUNCTIONS *******************************/
 
-char		*ft_strchr(const char *s, int c);
-int			ft_isdigit(int c);
+t_flags	*flags_init();
 
 #endif

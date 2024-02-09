@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdarg.h>
+#include <stdlib.h>
+#include <string.h>
 
 typedef struct flags
 {
@@ -28,7 +30,18 @@ void	fct(char *str, ...)
 	va_end(l);
 	va_end(l2);
 }
-
+typedef struct s_flags
+{
+	unsigned char	minus:1;
+	unsigned char	zero:1;
+	unsigned char	dot:1;
+	unsigned char	sharp:1;
+	unsigned char	space:1;
+	unsigned char	plus:1;
+	unsigned char	min_width:1; // ?
+	int				width; // for min_width, minus
+	int				pad; // for dot, zero
+} t_flags;
 int	main(void)
 {
 	flags f;
@@ -42,6 +55,7 @@ int	main(void)
 	f.minus |= c2 == '-';
 	f.sharp |= c2 == '#';
 	f.sharp &= !f.plus;
-	fct("blabla", "str1", "str2", "str3", 8);
+	/* fct("blabla", "str1", "str2", "str3", 8); */
+	printf("blabla<%5%>blabla\n");
 	return 0;
 }

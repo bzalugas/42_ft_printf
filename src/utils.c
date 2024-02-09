@@ -6,29 +6,19 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:21:03 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/08 18:38:46 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/09 03:49:00 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-char	*ft_strchr(const char *s, int c)
+t_flags	*flags_init()
 {
-	size_t	i;
+	t_flags	*new;
 
-	i = 0;
-	while (s[i])
-	{
-		if ((unsigned char)c == (unsigned char)s[i])
-			return ((char *)&s[i]);
-		i++;
-	}
-	if ((unsigned char)c == (unsigned char)s[i])
-		return ((char *)&s[i]);
-	return (NULL);
-}
-
-int	ft_isdigit(int c)
-{
-	return (c >= '0' && c <= '9');
+	new = (t_flags *)malloc(sizeof(t_flags));
+	if (!new)
+		return (NULL);
+	ft_memset(new, 0, sizeof(t_flags));
+	return (new);
 }
