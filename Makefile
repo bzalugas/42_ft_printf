@@ -6,7 +6,7 @@
 #    By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 22:53:55 by bazaluga          #+#    #+#              #
-#    Updated: 2024/02/09 06:09:49 by bazaluga         ###   ########.fr        #
+#    Updated: 2024/02/09 08:10:27 by bazaluga         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -20,7 +20,7 @@ OBJDIR		:=	obj
 
 LIBFTDIR	:=	libft
 
-SRC			:=	ft_printf.c buffer.c utils.c
+SRC			:=	ft_printf.c buffer.c flags_parsing.c utils.c
 
 OBJ			:=	$(SRC:.c=.o)
 
