@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 07:57:58 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/09 08:07:23 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/09 20:38:10 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static void	char_to_flags(t_flags *flags, char c)
 
 void	get_flags(t_flags **flags, char *str, size_t *i, va_list args)
 {
+	// Abort when same flag multiple times ?
 	while (str[*i] && (ft_strchr(FLAGS, str[*i]) || ft_isdigit(str[*i])))
 	{
 		char_to_flags(*flags, str[*i]);

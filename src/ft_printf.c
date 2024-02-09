@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 23:39:50 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/09 19:31:38 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/09 20:35:55 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static t_buffer	*tokenize(char *str, va_list args)
 			buff_add_back(&buf, buff_new(LIT, i++, str));
 			flags = flags_init();
 			get_flags(&flags, str, &i, args);
-			if (!ft_strchr(SPECIFIERS, str[i]))
+			if (!ft_strchr(SPECIFIERS, str[i]) || !flags)
 				return (buff_clear(&buf));
 			buff_add_back(&buf, buff_new(get_type(str[i]), 0, flags));
 			str += i + 1;
