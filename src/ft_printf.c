@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 23:39:50 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/09 07:14:35 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/09 07:50:44 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ static void	get_flags(t_flags **flags, char *str, size_t *i, va_list args)
 			(*flags)->width = handle_flag_nb(str, i, args);
 		else if (ft_isdigit(str[*i]) && str[*i] != '0')
 		{
+			if (*i > 0 && str[(*i) - 1] == '.' && (*flags)->zero)
+				(*flags)->width = (*flags)->pad;
 			if ((*flags)->dot || (*flags)->zero)
 				(*flags)->pad = ft_atoi(&str[*i]);
 			else
@@ -105,6 +107,26 @@ static t_buffer	*tokenize(char *str, va_list args)
 		buff_add_back(&buf, buff_new((char *)str, i, LIT));
 	return (buf);
 }
+#include <stdio.h>
+void	print_buff(t_buffer *buf)
+{
+	while (buf)
+	{
+		if (buf->type == LIT)
+			write(1, buf->content, buf->len);
+		else
+		{
+			printf("<%d %d %d %d %d %d %d %d>", ((t_flags*)buf->content)->minus,
+				((t_flags*)buf->content)->zero, ((t_flags*)buf->content)->dot,
+				((t_flags*)buf->content)->sharp, ((t_flags*)buf->content)->space,
+				((t_flags*)buf->content)->plus, ((t_flags*)buf->content)->width,
+				((t_flags*)buf->content)->pad);
+			fflush(stdout);
+		}
+
+		buf = buf->next;
+	}
+}
 
 int	ft_printf(const char *format, ...)
 {
@@ -115,17 +137,9 @@ int	ft_printf(const char *format, ...)
 	str = ft_strdup(format);
 	va_start(args, format);
 	buf = tokenize(str, args);
-	t_buffer *tmp = buf;
-	while (tmp)
-	{
-		if (tmp->type == LIT)
-			write(1, tmp->content, tmp->len);
-		else
-			write(1, "<CONVERSION>", 12);
-		tmp = tmp->next;
-	}
+	print_buff(buf);
 	free(str);
-	buff_clear(&buf);
+	/* buff_clear(&buf); */
 	va_end(args);
 	return (0);
 }
