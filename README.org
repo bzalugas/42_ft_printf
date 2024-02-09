@@ -53,7 +53,7 @@ The value should be zero padded. The converted value is padded on the left with 
 #+end_quote
 ** Field width
 #+begin_quote
-An optional digit string specifying min field width. If converted value has fewer characters than field width => padded with spaces on the left (right if -).
+An optional digit string specifying min field width. "*" to specify that precision is given in next argument, "*x$" for x-th argument. If converted value has fewer characters than field width => padded with spaces on the left (right if -).
 #+end_quote
 ** #
 #+begin_quote
