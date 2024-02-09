@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:39:36 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/09 19:27:24 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/09 20:12:26 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 typedef enum e_type
 {
-	LIT,
+	LIT = 1,
 	CHAR,
 	STR,
 	INT,
