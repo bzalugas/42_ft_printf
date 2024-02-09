@@ -57,6 +57,6 @@ int	main(void)
 	/* f.sharp |= c2 == '#'; */
 	/* f.sharp &= !f.plus; */
 	/* fct("blabla", "str1", "str2", "str3", 8); */
-	ft_printf("blabla1<%5d>blabla2\n");
+	ft_printf("blabla1~%-233d~blabla2\n");
 	return 0;
 }
