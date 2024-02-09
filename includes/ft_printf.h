@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:39:36 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/09 06:38:39 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/09 07:06:22 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ void		*buff_clear(t_buffer **buff);
 
 /****************************** UTILS FUNCTIONS *******************************/
 
-t_flags	*flags_init(void);
+t_flags		*flags_init(void);
 
 /********************************* FT_PRINTF **********************************/
 
-int	ft_printf(const char *format, ...);
+int			ft_printf(const char *format, ...);
 
 #endif
