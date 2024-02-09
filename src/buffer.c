@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:58:25 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/09 03:59:48 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/09 05:24:43 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,13 @@ void	buff_add_back(t_buffer **buff, t_buffer *new)
 
 	if (!*buff)
 		*buff = new;
-	tmp = *buff;
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = new;
+	else
+	{
+		tmp = *buff;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
 }
 
 void	*buff_clear(t_buffer **buff)

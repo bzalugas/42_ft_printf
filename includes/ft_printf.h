@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:39:36 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/09 04:09:39 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/09 06:07:36 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,8 @@
 
 typedef struct s_buffer	t_buffer;
 typedef struct s_flags	t_flags;
-typedef enum e_type		t_type;
 
-enum e_type
+typedef enum e_type
 {
 	LIT,
 	CHAR,
@@ -34,7 +33,7 @@ enum e_type
 	UINT,
 	PTR,
 	PERCENT
-};
+}			t_type;
 
 struct s_flags
 {
@@ -51,9 +50,9 @@ struct s_flags
 
 struct s_buffer
 {
-	void		*content;
-	size_t		len;
 	t_type		type;
+	size_t		len;
+	void		*content;
 	t_buffer	*next;
 };
 
@@ -65,6 +64,10 @@ void		*buff_clear(t_buffer **buff);
 
 /****************************** UTILS FUNCTIONS *******************************/
 
-t_flags	*flags_init();
+t_flags	*flags_init(void);
+
+/********************************* FT_PRINTF **********************************/
+
+int	ft_printf(const char *format, ...);
 
 #endif

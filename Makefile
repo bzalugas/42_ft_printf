@@ -6,46 +6,75 @@
 #    By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 22:53:55 by bazaluga          #+#    #+#              #
-#    Updated: 2024/02/07 23:34:45 by bazaluga         ###   ########.fr        #
+#    Updated: 2024/02/09 06:09:49 by bazaluga         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
-NAME	=	libftprintf.a
+######## SRCS & OBJ #########
 
-SRCDIR	=	src/
+INCLUDE		:=	includes/
 
-SRC		:=	ft_printf.c
+SRCDIR		:=	src
 
-SRC		:=	$(addprefix $(SRCDIR), $(SRC))
+OBJDIR		:=	obj
 
-OBJDIR	=	obj/
+LIBFTDIR	:=	libft
 
-OBJ		:=	$(SRC:.c=.o)
+SRC			:=	ft_printf.c buffer.c utils.c
 
-OBJ		:=	$(addprefix $(OBJDIR), $(OBJ))
+OBJ			:=	$(SRC:.c=.o)
 
-CC		=	cc
+SRC			:=	$(addprefix $(SRCDIR)/, $(SRC))
 
-CFLAGS	=	-Wall -Wextra -Werror
+OBJ			:=	$(addprefix $(OBJDIR)/, $(OBJ))
 
-all:		$(NAME)
+############ NAMES ##########
 
-.c.o:
-			$(CC) $(CFLAGS) -o $(<:.c=.o) -c $<
+NAME		:=	libftprintf.a
 
-$(NAME):	$(OBJ)
-			ar -rcs $(NAME) $(OBJ)
+LIBFTNAME	:=	libft.a
 
-bonus:		$(OBJ)
-			ar -rcs $(NAME) $(OBJ)
+LIBFT		:=	$(LIBFTDIR)/$(LIBFTNAME)
+
+########## COMMANDS #########
+
+CC			:=	cc
+
+CFLAGS		:=	-Wall -Wextra -Werror
+
+########### COLORS ##########
+
+RED			:=	"\033[31m"
+GREEN		:=	"\033[32m"
+RESET		:=	"\033[0m"
+
+all:			$(NAME)
+
+$(OBJDIR)/%.o:	$(SRCDIR)/%.c
+				$(CC) $(CFLAGS) -I$(INCLUDE) -I$(LIBFTDIR)/ -o $@ -c $<
+
+$(OBJDIR):
+				mkdir -p $(OBJDIR)
+
+$(LIBFT):
+				@echo $(GREEN)"Compiling libft"$(RESET)
+				make -C $(LIBFTDIR)
+				cp $(LIBFT) $(NAME)
+
+$(NAME):		$(LIBFT) $(OBJDIR) $(OBJ)
+				ar -rcs $(NAME) $(OBJ)
+
+bonus:			$(OBJ)
+				ar -rcs $(NAME) $(OBJ)
 
 clean:
-			rm -f $(OBJ)
+				rm -f $(OBJ)
 
-fclean:		clean
-			rm -f $(NAME)
-			rm -f *.out
+fclean:			clean
+				rm -f $(NAME)
+				rm -f *.out
+				rm -f $(LIBFT)
 
-re:			fclean all
+re:				fclean all
 
-.PHONY:		all clean fclean re
+.PHONY:			all clean fclean re

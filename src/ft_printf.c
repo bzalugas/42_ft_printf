@@ -6,13 +6,13 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 23:39:50 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/09 04:12:06 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/09 06:09:23 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-int	handle_flag_nb(const char *format, va_list args)
+static int	handle_flag_nb(char *format, va_list args)
 {
 	va_list		tmp;
 	size_t		i;
@@ -36,7 +36,7 @@ int	handle_flag_nb(const char *format, va_list args)
 	return (nb);
 }
 
-t_flags	*get_flags(const char *format, size_t *i, va_list args)
+static t_flags	*get_flags(char *format, size_t *i, va_list args)
 {
 	t_flags *flags;
 
@@ -55,6 +55,7 @@ t_flags	*get_flags(const char *format, size_t *i, va_list args)
 			flags->width = handle_flag_nb(&format[++(*i)], args);
 		else if (ft_isdigit(format[*i]) && format[*i] != '0')
 		{
+			flags->min_width = 1;
 			if (flags->minus || flags->min_width)
 				flags->width = ft_atoi(&format[*i]);
 			else if (flags->dot || flags->zero)
@@ -66,18 +67,7 @@ t_flags	*get_flags(const char *format, size_t *i, va_list args)
 	return (flags);
 }
 
-/* char		*get_conversion(const char *format, va_list args) */
-/* { */
-/* 	t_flags	flags; */
-
-/* 	//get flags */
-
-/* 	//convert */
-/* 	//process flags */
-/* 	//return created str */
-/* } */
-
-t_type	get_type(char c) // in utils ?
+static t_type	get_type(char c) // in utils ?
 {
 	if (c == 'c')
 		return CHAR;
@@ -92,7 +82,7 @@ t_type	get_type(char c) // in utils ?
 	return PERCENT;
 }
 
-t_buffer	*tokenize(const char *format, va_list args)
+static t_buffer	*tokenize(char *format, va_list args)
 {
 	t_buffer	*buf;
 	size_t		i;
@@ -102,25 +92,42 @@ t_buffer	*tokenize(const char *format, va_list args)
 	i = 0;
 	while (format[i])
 	{
-		if (ft_strchr(SPECIFIERS, format[i]))
+		if (format[i] == '%')
 		{
-			buff_add_back(&buf, buff_new((char *)format, i, LIT));
+			buff_add_back(&buf, buff_new((char *)format, i++, LIT));
 			flags = get_flags(format, &i, args);
 			if (!ft_strchr(SPECIFIERS, format[i]))
 				return (buff_clear(&buf));
 			buff_add_back(&buf, buff_new(flags, 0, get_type(format[i])));
+			format += i + 1;
+			i = (size_t)-1;
 		}
 		i++;
 	}
+	if (i > 0)
+		buff_add_back(&buf, buff_new((char *)format, i, LIT));
 	return (buf);
 }
 
 int		ft_printf(const char *format, ...)
 {
 	va_list		args;
+	t_buffer	*buf;
+	char		*str;
 
+	str = ft_strdup(format);
 	va_start(args, format);
-
+	buf = tokenize(str, args);
+	t_buffer *tmp = buf;
+	while (tmp)
+	{
+		if (tmp->type == LIT)
+			write(1, tmp->content, tmp->len);
+		else
+			write(1, "<CONVERSION>", 12);
+		tmp = tmp->next;
+	}
+	free(str);
 	va_end(args);
 	return (0);
 }
