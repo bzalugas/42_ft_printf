@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:58:25 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/12 13:18:46 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/12 13:49:30 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ void	*buff_clear(t_buffer **buff)
 	while (*buff)
 	{
 		tmp = (*buff)->next;
-		free((*buff)->content);
+		if ((*buff)->type != LIT)
+			free((*buff)->content);
 		free(*buff);
 		*buff = tmp;
 	}
