@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 23:39:50 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/12 13:33:00 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/12 16:25:05 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,33 +27,36 @@ static t_type	get_type(char c) // in utils ?
 	return (PERCENT);
 }
 
-static t_buffer	*tokenize(char *str, va_list args)
+static int	tokenize(t_buffer **buf, char *str, va_list args)
 {
-	t_buffer	*buf;
 	int			i;
 	t_flags		*flags;
+	bool		check;
 
-	buf = NULL;
 	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '%')
 		{
 			str[i] = '\0';
-			if (!buff_add_back(&buf, buff_new(LIT, i++, str)))
-				return (buff_clear(&buf));
+			check = buff_add_back(buf, buff_new(LIT, i++, str));
 			flags_get(&flags, str, &i, args);
-			if (!ft_strchr(SPECIFIERS, str[i]) || !flags)
-				return (buff_clear(&buf));
-			buff_add_back(&buf, buff_new(get_type(str[i]), 0, flags));
+			if (!check || !flags || !ft_strchr(SPECIFIERS, str[i]))
+			{
+				free(flags);
+				return (-1);
+			}
+			if (!buff_add_back(buf, buff_new(get_type(str[i]), 0, flags)))
+				return (-1);
 			str += i + 1;
 			i = -1;
 		}
 		i++;
 	}
 	if (i > 0)
-		buff_add_back(&buf, buff_new(LIT, i, str));
-	return (buf);
+		if (!buff_add_back(buf, buff_new(LIT, i, str)))
+			return (-1);
+	return (0);
 }
 #include <stdio.h>
 void	print_buff(t_buffer *buf)
@@ -65,12 +68,12 @@ void	print_buff(t_buffer *buf)
 			write(1, buf->content, buf->len);
 		else
 		{
-			printf("<-:%d 0:%d .:%d #:%d s:%d +:%d w:%d p:%d>",
+			printf("<-:%d 0:%d .:%d #:%d s:%d +:%d w:%d p:%d type:%d>",
 				((t_flags*)buf->content)->minus,
 				((t_flags*)buf->content)->zero, ((t_flags*)buf->content)->dot,
 				((t_flags*)buf->content)->sharp, ((t_flags*)buf->content)->space,
 				((t_flags*)buf->content)->plus, ((t_flags*)buf->content)->width,
-				((t_flags*)buf->content)->pad);
+				((t_flags*)buf->content)->pad, buf->type);
 			fflush(stdout);
 		}
 
@@ -85,12 +88,18 @@ int	ft_printf(const char *format, ...)
 	char		*str;
 	int			count;
 
+	buf = NULL;
+	if (!format)
+		return (-1);
 	str = ft_strdup(format);
 	va_start(args, format);
-	buf = tokenize(str, args);
+	count = tokenize(&buf, str, args);
+	if (!buf)
+		return (-1);
 	print_buff(buf);
 	free(str);
-	count = buff_update_len(0);
+	if (!count)
+		count = buff_update_len(0);
 	buff_clear(&buf);
 	va_end(args);
 	return (count);
