@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 23:39:50 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/12 13:28:01 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/12 13:33:00 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	ft_printf(const char *format, ...)
 	buf = tokenize(str, args);
 	print_buff(buf);
 	free(str);
-	count = buf->len;
+	count = buff_update_len(0);
 	buff_clear(&buf);
 	va_end(args);
 	return (count);
