@@ -6,7 +6,7 @@
 #    By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 22:53:55 by bazaluga          #+#    #+#              #
-#    Updated: 2024/02/12 12:43:04 by bazaluga         ###   ########.fr        #
+#    Updated: 2024/02/12 13:39:57 by bazaluga         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -61,7 +61,7 @@ $(LIBFT):
 		make -C $(LIBFTDIR)
 		cp $(LIBFT) $(NAME)
 
-$(NAME):	(LIBFT) $(OBJDIR) $(OBJ)
+$(NAME):	$(LIBFT) $(OBJDIR) $(OBJ)
 		ar -rcs $(NAME) $(OBJ)
 
 bonus:		$(OBJ)
