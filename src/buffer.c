@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:58:25 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/09 20:15:21 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/12 13:11:39 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,12 @@ t_buffer	*buff_new(t_type type, size_t len, void *content)
 	return (new);
 }
 
-void	buff_add_back(t_buffer **buff, t_buffer *new)
+bool	buff_add_back(t_buffer **buff, t_buffer *new)
 {
 	t_buffer	*tmp;
 
+	if (!new)
+		return (false);
 	if (!*buff)
 		*buff = new;
 	else
@@ -40,6 +42,7 @@ void	buff_add_back(t_buffer **buff, t_buffer *new)
 		tmp->next = new;
 	}
 	buff_update_len(new->len);
+	return (true);
 }
 
 void	buff_reset_node(t_buffer *node)

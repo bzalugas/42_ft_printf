@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:39:36 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/09 20:12:26 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/12 13:11:17 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdarg.h>
 # include <stdlib.h>
+# include <stdbool.h>
 # include "../libft/libft.h"
 
 /*********************************** STRUCTS **********************************/
@@ -59,7 +60,7 @@ typedef struct s_buffer
 /****************************** BUFFER FUNCTIONS ******************************/
 
 t_buffer	*buff_new(t_type type, size_t len, void *content);
-void		buff_add_back(t_buffer **buff, t_buffer *new);
+bool		buff_add_back(t_buffer **buff, t_buffer *new);
 void		*buff_clear(t_buffer **buff);
 size_t		buff_update_len(size_t to_add);
 
