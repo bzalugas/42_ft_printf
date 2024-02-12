@@ -65,11 +65,11 @@ size_t		buff_update_len(size_t to_add);
 
 /************************* FLAGS PARSING FUNCTIONS ****************************/
 
-void		get_flags(t_flags **flags, char *str, size_t *i, va_list args);
+void		flags_get(t_flags **flags, char *str, size_t *i, va_list args);
 
 /****************************** UTILS FUNCTIONS *******************************/
 
-t_flags		*flags_init(void);
+
 
 /********************************* FT_PRINTF **********************************/
 
