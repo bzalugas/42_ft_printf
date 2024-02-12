@@ -6,7 +6,7 @@
 #    By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 22:53:55 by bazaluga          #+#    #+#              #
-#    Updated: 2024/02/12 13:39:57 by bazaluga         ###   ########.fr        #
+#    Updated: 2024/02/13 00:52:01 by bazaluga         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -74,6 +74,7 @@ fclean:		clean
 		rm -f $(NAME)
 		rm -f *.out
 		rm -f $(LIBFT)
+		rm -rf *.dSYM
 
 re:		fclean all
 
