@@ -6,13 +6,13 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:58:25 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/12 13:11:39 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/12 13:18:46 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-t_buffer	*buff_new(t_type type, size_t len, void *content)
+t_buffer	*buff_new(t_type type, int len, void *content)
 {
 	t_buffer	*new;
 
@@ -69,9 +69,9 @@ void	*buff_clear(t_buffer **buff)
 	return (NULL);
 }
 
-size_t	buff_update_len(size_t to_add)
+int	buff_update_len(size_t to_add)
 {
-	static size_t	total = 0;
+	static int	total = 0;
 
 	total += to_add;
 	return (total);

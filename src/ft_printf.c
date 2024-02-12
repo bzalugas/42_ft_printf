@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 23:39:50 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/12 13:13:01 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/12 13:28:01 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static t_type	get_type(char c) // in utils ?
 static t_buffer	*tokenize(char *str, va_list args)
 {
 	t_buffer	*buf;
-	size_t		i;
+	int			i;
 	t_flags		*flags;
 
 	buf = NULL;
@@ -47,7 +47,7 @@ static t_buffer	*tokenize(char *str, va_list args)
 				return (buff_clear(&buf));
 			buff_add_back(&buf, buff_new(get_type(str[i]), 0, flags));
 			str += i + 1;
-			i = (size_t) - 1;
+			i = -1;
 		}
 		i++;
 	}
@@ -58,7 +58,7 @@ static t_buffer	*tokenize(char *str, va_list args)
 #include <stdio.h>
 void	print_buff(t_buffer *buf)
 {
-	printf("total len = %lu\n", buff_update_len(0));
+	printf("total len = %d\n", buff_update_len(0));
 	while (buf)
 	{
 		if (buf->type == LIT)
@@ -83,13 +83,15 @@ int	ft_printf(const char *format, ...)
 	va_list		args;
 	t_buffer	*buf;
 	char		*str;
+	int			count;
 
 	str = ft_strdup(format);
 	va_start(args, format);
 	buf = tokenize(str, args);
 	print_buff(buf);
 	free(str);
-	/* buff_clear(&buf); */
+	count = buf->len;
+	buff_clear(&buf);
 	va_end(args);
-	return (0);
+	return (count);
 }

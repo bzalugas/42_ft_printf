@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 07:57:58 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/12 13:04:01 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/12 13:27:22 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static t_flags	*flags_init(void)
 	return (new);
 }
 
-static int	flags_handle_star(char *str, size_t *i, va_list args)
+static int	flags_handle_star(char *str, int *i, va_list args)
 {
 	va_list		tmp;
 	int			nb;
@@ -56,10 +56,10 @@ static void	flags_from_char(t_flags *flags, char c)
 	flags->plus |= c == '+';
 }
 
-void	flags_get(t_flags **flags, char *str, size_t *i, va_list args)
+void	flags_get(t_flags **flags, char *str, int *i, va_list args)
 {
-	*flags = flags_init();
 	// Abort when same flag multiple times ?
+	*flags = flags_init();
 	while (str[*i] && (ft_strchr(FLAGS, str[*i]) || ft_isdigit(str[*i])))
 	{
 		flags_from_char(*flags, str[*i]);
