@@ -42,6 +42,7 @@ CLOCK: [2024-02-08 Thu 16:35]--[2024-02-08 Thu 16:36] =>  0:01
 
 * Notes
 When error : write already registered links but return -1
+At write : write may write less bytes than =count= so need to loop writes if return value < count.
 Steps :
 1. tokenize format string
 2. Convert links and add a link before/after for prefix & suffix. Keep total len in first link.
