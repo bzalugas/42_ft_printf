@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 23:39:50 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/13 01:46:44 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/13 01:51:20 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,10 @@ int	ft_printf(const char *format, ...)
 	str = ft_strdup(format);
 	va_start(args, format);
 	count = tokenize(&buf, str, args);
+	free(str);
 	if (!buf)
 		return (-1);
 	print_buff(buf);
-	free(str);
 	if (!count)
 		count = buff_update_len(0);
 	buff_clear(&buf);
