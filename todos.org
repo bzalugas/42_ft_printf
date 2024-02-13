@@ -31,6 +31,9 @@ CLOCK: [2024-02-02 Fri 10:28]--[2024-02-02 Fri 11:24] =>  0:56
 :EFFORT:   15:00
 :END:
 :LOGBOOK:
+CLOCK: [2024-02-13 Tue 03:26]--[2024-02-13 Tue 04:49] =>  1:23
+CLOCK: [2024-02-13 Tue 02:17]--[2024-02-13 Tue 02:50] =>  0:33
+CLOCK: [2024-02-13 Tue 01:40]--[2024-02-13 Tue 02:08] =>  0:28
 CLOCK: [2024-02-12 Mon 14:26]--[2024-02-12 Mon 15:04] =>  0:38
 CLOCK: [2024-02-12 Mon 12:57]--[2024-02-12 Mon 14:03] =>  1:06
 CLOCK: [2024-02-09 Fri 18:57]--[2024-02-09 Fri 19:33] =>  0:36
@@ -45,6 +48,6 @@ When error : write already registered links but return -1
 At write : write may write less bytes than =count= so need to loop writes if return value < count.
 Steps :
 1. tokenize format string
-2. Convert links and add a link before/after for prefix & suffix. Keep total len in first link.
+2. Convert links and add a link before/after for prefix & suffix. Keep total len in function.
 3. Create the final string with only 1 malloc of the total len then copy all the strings.
 4. write the final string.
