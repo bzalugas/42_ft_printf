@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 23:39:50 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/12 16:25:05 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/13 01:46:44 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,31 +22,49 @@ static t_type	get_type(char c) // in utils ?
 		return (PTR);
 	if (c == 'd' || c == 'i')
 		return (INT);
-	if (c == 'u' || c == 'x' || c == 'X')
+	if (c == 'u')
 		return (UINT);
-	return (PERCENT);
+	if (c == 'x')
+		return (LHEX);
+	if (c == 'X')
+		return (UHEX);
+	if (c == '%')
+		return (PERCENT);
+	return (ERR);
+}
+
+static bool	parse(t_buffer **buf, char *str, int *i, va_list args)
+{
+	t_flags	*flags;
+	t_type	type;
+
+	str[*i] = '\0';
+	if (!buff_add_back(buf, buff_new(LIT, (*i)++, str)))
+		return (false);
+	if (!flags_get(&flags, str, i, args))
+		return (false);
+	type = get_type(str[*i]);
+	if (type == ERR || !buff_add_back(buf, buff_new(type, 0, flags)))
+	{
+		free(flags);
+		return (false);
+	}
+	return (true);
 }
 
 static int	tokenize(t_buffer **buf, char *str, va_list args)
 {
-	int			i;
-	t_flags		*flags;
-	bool		check;
+	int		i;
+
+	bool	check;
 
 	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '%')
 		{
-			str[i] = '\0';
-			check = buff_add_back(buf, buff_new(LIT, i++, str));
-			flags_get(&flags, str, &i, args);
-			if (!check || !flags || !ft_strchr(SPECIFIERS, str[i]))
-			{
-				free(flags);
-				return (-1);
-			}
-			if (!buff_add_back(buf, buff_new(get_type(str[i]), 0, flags)))
+			check = parse(buf, str, &i, args);
+			if (!check)
 				return (-1);
 			str += i + 1;
 			i = -1;
@@ -54,8 +72,7 @@ static int	tokenize(t_buffer **buf, char *str, va_list args)
 		i++;
 	}
 	if (i > 0)
-		if (!buff_add_back(buf, buff_new(LIT, i, str)))
-			return (-1);
+		return (buff_add_back(buf, buff_new(LIT, i, str)) - 1);
 	return (0);
 }
 #include <stdio.h>
