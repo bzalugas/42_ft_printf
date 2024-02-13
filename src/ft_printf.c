@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 23:39:50 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/13 04:46:23 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/13 17:09:34 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,14 @@ static bool	parse(t_buffer **buf, char *str, int *i, va_list args)
 	t_flags	*flags;
 	t_type	type;
 
-	str[*i] = '\0';
-	if (!buff_add_back(buf, buff_new(LIT, (*i)++, str)))
-		return (false);
+	if (*i > 0)
+	{
+		str[*i] = '\0';
+		if (!buff_add_back(buf, buff_new(LIT, (*i)++, str)))
+			return (false);
+	}
+	else
+		++(*i);
 	if (!flags_get(&flags, str, i, args))
 		return (false);
 	type = get_type(str[*i]);
