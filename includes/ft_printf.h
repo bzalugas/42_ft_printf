@@ -24,11 +24,14 @@
 
 typedef enum e_type
 {
-	LIT = 1,
+	ERR = 0,
+	LIT,
 	CHAR,
 	STR,
 	INT,
 	UINT,
+	LHEX,
+	UHEX,
 	PTR,
 	PERCENT
 }			t_type;
