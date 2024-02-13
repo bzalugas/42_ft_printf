@@ -50,6 +50,7 @@ typedef struct s_flags
 	unsigned char	plus:1;
 	int				width;
 	int				pad;
+	int				n_star;
 }				t_flags;
 
 typedef struct s_buffer

@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 07:57:58 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/13 01:27:52 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/14 00:30:58 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@ static t_flags	*flags_init(void)
 	return (new);
 }
 
-static int	flags_handle_star(char *str, int *i, va_list args)
+static int	flags_handle_star(t_flags *f, char *str, int *i, va_list args)
 {
 	va_list		tmp;
 	int			nb;
 	int			n_arg;
 
 	n_arg = ft_atoi(str);
+	f->n_star = n_arg;
 	while (str[*i] && ft_isdigit(str[*i]))
 		(*i)++;
 	if (!str[*i] || str[*i] != '$')
@@ -66,9 +67,9 @@ bool	flags_get(t_flags **flags, char *str, int *i, va_list args)
 	{
 		flags_from_char(*flags, str[*i]);
 		if (str[*i] == '*' && (*flags)->dot)
-			(*flags)->pad = flags_handle_star(str, i, args);
+			(*flags)->pad = flags_handle_star(*flags, str, i, args);
 		else if (str[*i] == '*')
-			(*flags)->width = flags_handle_star(str, i, args);
+			(*flags)->width = flags_handle_star(*flags, str, i, args);
 		else if (ft_isdigit(str[*i]) && str[*i] != '0')
 		{
 			if (*i > 0 && str[(*i) - 1] == '.' && (*flags)->zero)
