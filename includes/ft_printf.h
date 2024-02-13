@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:39:36 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/13 04:15:54 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/13 16:09:05 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ bool	convert_buffer(t_buffer **buf, va_list args);
 /**************************** CONVERSIONS HANDLERS ****************************/
 
 bool	handle_char(t_buffer *node, int c);
+bool	handle_str(t_buffer **buf, t_buffer *node, char *str);
 
 /********************************* FT_PRINTF **********************************/
 
