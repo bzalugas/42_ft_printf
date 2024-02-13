@@ -6,9 +6,9 @@
 
 int	main(void)
 {
-	ft_printf("%-10c\n", 'A');
-	/* printf("\n"); */
-	return (printf("%-10c", 'A'));
+	return (ft_printf("%.1s", "abc"));
+	/* printf("%1.2s", "abcde"); */
+	/* return (printf("%-10.1s", "abcde")); */
 	/* printf("%d\n", 15 % 10); */
 	return (0);
 }

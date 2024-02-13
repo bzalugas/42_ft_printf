@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:41:39 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/13 17:06:45 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/13 17:13:34 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static bool	handle_flags_str(t_buffer **buf, t_buffer *node, char *str)
 	f = (t_flags *)node->content;
 	f->pad = f->pad - ((f->pad > len_str) * (f->pad - len_str));
 	f->width = (f->width > len_str) * f->width;
-	len_add = f->width - f->pad;
+	len_add = f->width - f->pad; //HERE IS THE SEGFAULT PB
 	add = (char *)ft_calloc(len_add + 1, sizeof(char));
 	if (!add)
 		return (false);
