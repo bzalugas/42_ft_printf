@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 07:57:58 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/12 13:27:22 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/13 01:27:52 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,12 @@ static void	flags_from_char(t_flags *flags, char c)
 	flags->plus |= c == '+';
 }
 
-void	flags_get(t_flags **flags, char *str, int *i, va_list args)
+bool	flags_get(t_flags **flags, char *str, int *i, va_list args)
 {
 	// Abort when same flag multiple times ?
 	*flags = flags_init();
+	if (!*flags || !str[*i])
+		return (false);
 	while (str[*i] && (ft_strchr(FLAGS, str[*i]) || ft_isdigit(str[*i])))
 	{
 		flags_from_char(*flags, str[*i]);
@@ -81,4 +83,5 @@ void	flags_get(t_flags **flags, char *str, int *i, va_list args)
 		else
 			(*i)++;
 	}
+	return (true);
 }
