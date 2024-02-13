@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:58:25 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/12 13:49:30 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/13 01:16:10 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ bool	buff_add_back(t_buffer **buff, t_buffer *new)
 {
 	t_buffer	*tmp;
 
-	if (!new)
+	if (!new || !buff)
 		return (false);
 	if (!*buff)
 		*buff = new;
