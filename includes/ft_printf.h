@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:39:36 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/12 13:26:53 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/13 01:47:38 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int			buff_update_len(size_t to_add);
 
 /************************* FLAGS PARSING FUNCTIONS ****************************/
 
-void		flags_get(t_flags **flags, char *str, int *i, va_list args);
+bool		flags_get(t_flags **flags, char *str, int *i, va_list args);
 
 /****************************** UTILS FUNCTIONS *******************************/
 
