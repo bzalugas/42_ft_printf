@@ -19,9 +19,9 @@ bool	handle_char(t_buffer *node, int c)
 	bool	minus;
 	int		width;
 
-	width = ((t_flags*)node->content)->width;
-	minus = ((t_flags*)node->content)->minus;
-	len =  width + (width < 1);
+	width = ((t_flags *)node->content)->width;
+	minus = ((t_flags *)node->content)->minus;
+	len = width + (width < 1);
 	res = ft_calloc(len + 1, sizeof(char));
 	if (!res)
 		return (false);
