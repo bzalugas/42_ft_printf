@@ -6,7 +6,7 @@
 #    By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 22:53:55 by bazaluga          #+#    #+#              #
-#    Updated: 2024/02/13 00:52:01 by bazaluga         ###   ########.fr        #
+#    Updated: 2024/02/13 04:21:30 by bazaluga         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -20,7 +20,8 @@ OBJDIR		:=	obj
 
 LIBFTDIR	:=	libft
 
-SRC		:=	ft_printf.c buffer.c flags_parsing.c utils.c
+SRC		:=	ft_printf.c buffer.c buffer2.c flags_parsing.c utils.c \
+			conversions_handlers.c convert_buffer.c
 
 OBJ		:=	$(SRC:.c=.o)
 
@@ -40,7 +41,7 @@ LIBFT		:=	$(LIBFTDIR)/$(LIBFTNAME)
 
 CC		:=	cc
 
-CFLAGS		:=	-Wall -Wextra -Werror
+CFLAGS		:=	-Wall -Wextra -Werror -g3
 
 ########### COLORS ##########
 

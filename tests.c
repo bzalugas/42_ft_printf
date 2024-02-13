@@ -6,7 +6,9 @@
 
 int	main(void)
 {
-	return (ft_printf("A~%10d~B\n"));
-	/* return (printf("A~%d, %", 12)); */
+	ft_printf("%-10c\n", 'A');
+	/* printf("\n"); */
+	return (printf("%-10c", 'A'));
+	/* printf("%d\n", 15 % 10); */
 	return (0);
 }

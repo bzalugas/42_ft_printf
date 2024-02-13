@@ -1,43 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buffer2.c                                          :+:      :+:    :+:   */
+/*   convert_buffer.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/13 02:29:26 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/13 02:47:30 by bazaluga         ###   ########.fr       */
+/*   Created: 2024/02/13 02:43:21 by bazaluga          #+#    #+#             */
+/*   Updated: 2024/02/13 04:16:54 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-void	*buff_clear(t_buffer **buff)
+static void	convert_node(t_buffer **buf, t_buffer *node, va_list args)
 {
-	t_buffer	*tmp;
+	if (node->type == CHAR)
+		handle_char(node, va_arg(args, int));
+	(void)buf;
 
-	while (*buff)
+}
+
+bool	convert_buffer(t_buffer **buf, va_list args)
+{
+	t_buffer	*node;
+
+	node = buff_get_next_conversion(*buf);
+	while (node)
 	{
-		tmp = (*buff)->next;
-		if ((*buff)->type != LIT)
-			free((*buff)->content);
-		free(*buff);
-		*buff = tmp;
+		convert_node(buf, node, args);
+		node = buff_get_next_conversion(node);
 	}
-	return (NULL);
-}
-
-int	buff_update_len(size_t to_add)
-{
-	static int	total = 0;
-
-	total += to_add;
-	return (total);
-}
-
-t_buffer	*buff_get_next_conversion(t_buffer *node)
-{
-	while (node && node->type == LIT)
-		node = node->next;
-	return (node);
+	return (true);
 }
