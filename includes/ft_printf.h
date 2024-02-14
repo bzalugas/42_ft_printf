@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:39:36 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/13 16:09:05 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/14 00:29:27 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,29 +63,31 @@ typedef struct s_buffer
 
 /****************************** BUFFER FUNCTIONS ******************************/
 
-t_buffer	*buff_new(t_type type, int len, void *content);
-bool		buff_add_back(t_buffer **buff, t_buffer *new);
-bool		buff_add_after(t_buffer *node, t_buffer *new);
-bool		buff_add_before(t_buffer **buff, t_buffer *node, t_buffer *new);
-void		*buff_clear(t_buffer **buff);
-int			buff_update_len(size_t to_add);
-t_buffer	*buff_get_next_conversion(t_buffer *node);
+t_buffer		*buff_new(t_type type, int len, void *content);
+bool			buff_add_back(t_buffer **buff, t_buffer *new);
+bool			buff_add_after(t_buffer *node, t_buffer *new);
+bool			buff_add_before(t_buffer **buff, t_buffer *node, t_buffer *new);
+void			*buff_clear(t_buffer **buff);
+int				buff_update_len(size_t to_add);
+t_buffer		*buff_get_next_conversion(t_buffer *node);
 
 /************************* FLAGS PARSING FUNCTIONS ****************************/
 
-bool		flags_get(t_flags **flags, char *str, int *i, va_list args);
+bool			flags_get(t_flags **flags, char *str, int *i, va_list args);
 
 /****************************** UTILS FUNCTIONS *******************************/
 
-bool	convert_buffer(t_buffer **buf, va_list args);
+unsigned int	ft_abs(int n);
 
-/**************************** CONVERSIONS HANDLERS ****************************/
+/****************************** CONVERSIONS PART ******************************/
 
-bool	handle_char(t_buffer *node, int c);
-bool	handle_str(t_buffer **buf, t_buffer *node, char *str);
+bool			convert_buffer(t_buffer **buf, va_list args);
+
+bool			handle_char(t_buffer *node, int c);
+bool			handle_str(t_buffer **buf, t_buffer *node, char *str);
 
 /********************************* FT_PRINTF **********************************/
 
-int			ft_printf(const char *format, ...);
+int				ft_printf(const char *format, ...);
 
 #endif
