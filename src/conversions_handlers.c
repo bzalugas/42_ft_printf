@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:41:39 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/13 17:13:34 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/14 06:39:38 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,29 @@ bool	handle_char(t_buffer *node, int c)
 
 static bool	handle_flags_str(t_buffer **buf, t_buffer *node, char *str)
 {
-	int			len_str;
 	int			len_add;
+	int			len_str;
 	t_flags		*f;
 	char		*add;
 
-	len_str = ft_strlen(str);
+	len_add = 0;
 	f = (t_flags *)node->content;
-	f->pad = f->pad - ((f->pad > len_str) * (f->pad - len_str));
-	f->width = (f->width > len_str) * f->width;
-	len_add = f->width - f->pad; //HERE IS THE SEGFAULT PB
+	len_str = ft_strlen(str);
+	if (f->dot && f->pad > len_str)
+		f->dot = 0;
+	if (f->dot && f->width > len_str - (len_str - f->pad))
+		len_add = f->width - len_str - (len_str - f->pad);
+	else if(!f->dot)
+		len_add = f->width - len_str;
+	if (!len_add)
+		return (true);
 	add = (char *)ft_calloc(len_add + 1, sizeof(char));
 	if (!add)
 		return (false);
 	ft_memset(add, ' ', len_add);
-	if (f->minus && !buff_add_after(node, buff_new(LIT, len_add, add)))
-		return (false);
-	else if (!f->minus && f->width
-		&& !buff_add_before(buf, node, buff_new(LIT, len_add, add)))
-		return (false);
-	return (true);
+	if (f->minus && f->width)
+		return (buff_add_after(node, buff_new(LIT, len_add, add)));
+	return (buff_add_before(buf, node, buff_new(LIT, len_add, add)));
 }
 
 bool	handle_str(t_buffer **buf, t_buffer *node, char *str)
