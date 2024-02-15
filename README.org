@@ -68,6 +68,7 @@ An optional digit string specifying min field width. "*" to specify that precisi
 Behavior:
 - %c: blanks on the left
 - %s: blanks on the left
+- %x.ys: total len of x but max y chars from str
 ** #
 #+begin_quote
 Value converted to an "alternate form". For x and X a nonzero result has 0x or 0X prepended to it.
