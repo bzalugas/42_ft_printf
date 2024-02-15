@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:41:39 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/15 18:12:35 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/15 18:14:17 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static bool	handle_flags_str(t_buffer **buf, t_buffer *node, char *str)
 	return (buff_add_before(buf, node, buff_new(LIT, len_add, add)));
 }
 
-bool	handle_str(t_buffer **buf, t_buffer *node, char *str)
+bool	handle_str(t_buffer **buf, t_buffer *node, const char *str)
 {
 	t_flags	*f;
 

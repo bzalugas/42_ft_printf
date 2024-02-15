@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:39:36 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/15 18:10:41 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/15 18:14:15 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ unsigned int	ft_abs(int n);
 bool			convert_buffer(t_buffer **buf, va_list args);
 
 bool			handle_char(t_buffer *node, int c);
-bool			handle_str(t_buffer **buf, t_buffer *node, char *str);
+bool			handle_str(t_buffer **buf, t_buffer *node, const char *str);
 
 /********************************* FT_PRINTF **********************************/
 
