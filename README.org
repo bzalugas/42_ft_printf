@@ -13,10 +13,6 @@ The =int= argument is converted to an =unsigned char= and the resulting characte
 #+begin_quote
 The =const char *= argument is excpected to be a pointer to an array of character type (pointer to a string). Characters from the array are written up to (*but not including*) a terminating null byte ('\0').
 #+end_quote
-** %p
-#+begin_quote
-The =void *= pointer argument is printed in hexadecimal.
-#+end_quote
 ** %d
 #+begin_quote
 The =int= argument is converted to a decimal notation.
@@ -37,6 +33,14 @@ The =unsigned int= argument is converted to unsigned hexadecimal. The letters *a
 #+begin_quote
 The =unsigned int= argument is converted to unsigned hexadecimal. The letters *ABCDEF* are used for *X* conversion.
 #+end_quote
+** %p
+#+begin_quote
+The =void *= pointer argument is printed in hexadecimal.
+#+end_quote
+** %%
+#+begin_quote
+A '%' is written. No argument is converted.
+#+end_quote
 
 * Implemented flags (bonuses)
 ** -
@@ -47,6 +51,8 @@ Behavior:
 - %c: blanks on the right
 - %s: blanks on the right
 - %-x.ys: total len of x but max y chars from str
+- %p:
+- %d
 ** 0
 #+begin_quote
 The value should be zero padded. The converted value is padded on the left with zeros rather than blanks. *If the 0 and - flags both appear, the 0 is ignored.* If a precision given with d, i, o, u, x or X, 0 flag ignored. For other conversion, undefined behavior.
