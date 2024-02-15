@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:41:39 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/14 06:39:38 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/15 17:56:30 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ bool	handle_char(t_buffer *node, int c)
 	node->content = res;
 	node->type = LIT;
 	buff_update_len(len);
-	node->len = len; // to remove
+	node->len = len;
 	return (true);
 }
 
@@ -51,12 +51,13 @@ static bool	handle_flags_str(t_buffer **buf, t_buffer *node, char *str)
 		len_add = f->width - len_str - (len_str - f->pad);
 	else if(!f->dot)
 		len_add = f->width - len_str;
-	if (!len_add)
+	if (len_add < 1)
 		return (true);
 	add = (char *)ft_calloc(len_add + 1, sizeof(char));
 	if (!add)
 		return (false);
 	ft_memset(add, ' ', len_add);
+	buff_update_len(len_add);
 	if (f->minus && f->width)
 		return (buff_add_after(node, buff_new(LIT, len_add, add)));
 	return (buff_add_before(buf, node, buff_new(LIT, len_add, add)));
@@ -70,10 +71,11 @@ bool	handle_str(t_buffer **buf, t_buffer *node, char *str)
 		return (false);
 	f = (t_flags *)node->content;
 	if (f->dot)
-		str[f->pad] = '\0';
-	node->content = str;
+		node->content = ft_strndup(str, f->pad);
+	else
+		node->content = str;
 	node->type = LIT;
-	node->len = ft_strlen(str);
+	node->len = ft_strlen((char *)node->content);
 	buff_update_len(node->len);
 	free(f);
 	return (true);

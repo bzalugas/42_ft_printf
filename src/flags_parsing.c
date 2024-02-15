@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 07:57:58 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/14 00:30:58 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/15 17:48:03 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,12 @@ static int	flags_handle_star(t_flags *f, char *str, int *i, va_list args)
 	int			nb;
 	int			n_arg;
 
+	(*i)++;
 	n_arg = ft_atoi(str);
-	f->n_star = n_arg;
+	f->n_star = n_arg + (n_arg == 0);
 	while (str[*i] && ft_isdigit(str[*i]))
 		(*i)++;
-	if (!str[*i] || str[*i] != '$')
+	if (!str[*i] || (f->n_star > 1 && str[*i] != '$'))
 		return (-1);
 	va_copy(tmp, args);
 	nb = -1;
