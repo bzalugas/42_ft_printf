@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:39:36 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/14 00:29:27 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/15 18:10:41 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ typedef enum e_type
 	LIT,
 	CHAR,
 	STR,
+	PTR,
 	INT,
 	UINT,
 	LHEX,
 	UHEX,
-	PTR,
 	PERCENT
 }			t_type;
 
