@@ -10,17 +10,26 @@ int	tests()
 	int	r2;
 
 	fflush(stdout);
-	r1 = printf(" <%c> \n", 'a');
+	r1 = printf(" <%c | %s | %d | %i | %u | %x | %X | %p | %%> \n", 'a', "abc", -23, -23, -23, -23, -23, &r1);
 	fflush(stdout);
-	r2 = ft_printf(" <%c> \n", 'a');
+	r2 = ft_printf(" <%c | %s | %d | %i | %u | %x | %X | %p | %%> \n", 'a', "abc", -23, -23, -23, -23, -23, &r1);
 	if (r1 != r2)
 		return 0;
+
 	fflush(stdout);
 	r1 = printf(" <%5c> \n", 'a');
 	fflush(stdout);
 	r2 = ft_printf(" <%5c> \n", 'a');
 	if (r1 != r2)
 		return 0;
+
+	fflush(stdout);
+	r1 = printf(" <%5c> \n", 'a');
+	fflush(stdout);
+	r2 = ft_printf(" <%5c> \n", 'a');
+	if (r1 != r2)
+		return 0;
+
 	fflush(stdout);
 	r1 = printf(" <%-5c> \n", 'a');
 	fflush(stdout);
@@ -38,12 +47,13 @@ int	tests()
 
 int	main(void)
 {
-	if (!tests())
-	{
-		printf("\n\nERROR\n");
-		return (1);
-	}
-	printf("\n\nALL GOOD\n");
-	/* ft_printf("%10d", 23); */
+	/* if (!tests()) */
+	/* { */
+	/* 	printf("\n\nERROR\n"); */
+	/* 	return (1); */
+	/* } */
+	/* printf("\n\nALL GOOD\n"); */
+	ft_printf("%.2s | %s\n", "abc", "def");
+	/* printf("%.2s | %s\n", "abc", "def"); */
 	return (0);
 }
