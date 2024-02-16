@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:39:36 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 22:03:50 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/16 22:48:16 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef enum e_type
 	UHEX,
 	PTR,
 	PERCENT,
-	CONVERTED
+	CONV
 }			t_type;
 
 /* width is used for min_width & minus & 0 flags
@@ -89,9 +89,12 @@ bool			flags_get(t_flags **flags, char *str, int *i, va_list args);
 
 /****************************** UTILS FUNCTIONS *******************************/
 
-unsigned int	ft_abs(int n);
 char			*ft_itoa_printf(int n, t_flags *f);
-char			*utoa(unsigned int n);
+char			*ft_utoa_printf(unsigned int n);
+
+/********************************** HELPER ************************************/
+
+bool			get_adds(char **sp, char **zer, t_flags *f);
 
 /****************************** CONVERSIONS PART ******************************/
 
@@ -100,6 +103,7 @@ bool			convert_buffer(t_buffer *buf, va_list args);
 bool			handle_char(t_buffer *buf, t_node *node, int c);
 bool			handle_str(t_buffer *buf, t_node *node, const char *str);
 bool			handle_int(t_buffer *buf, t_node *node, int arg);
+bool			handle_uint(t_buffer *buf, t_node *node, unsigned int arg);
 
 /********************************* FT_PRINTF **********************************/
 

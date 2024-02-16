@@ -6,18 +6,11 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:21:03 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 17:09:11 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/16 22:48:08 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
-
-unsigned int	ft_abs(int n)
-{
-	if (n < 0)
-		return (-n);
-	return (n);
-}
 
 static int	len_long(long n)
 {
@@ -60,7 +53,7 @@ char	*ft_itoa_printf(int n, t_flags *f)
 	return (nb);
 }
 
-char	*utoa(unsigned int n)
+char	*ft_utoa_printf(unsigned int n)
 {
 	int		len;
 	char	*res;
@@ -69,11 +62,11 @@ char	*utoa(unsigned int n)
 	res = (char *)ft_calloc(len + 1, sizeof(char));
 	if (!res)
 		return (NULL);
-	while (n > 0)
+	while (len > 0)
 	{
 		res[len - 1] = n % 10 + '0';
-		len--;
 		n /= 10;
+		len--;
 	}
 	return (res);
 }

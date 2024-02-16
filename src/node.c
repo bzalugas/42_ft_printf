@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:58:25 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 18:48:03 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/16 22:45:43 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_node	*node_new(t_type type, int len, void *content)
 
 t_node	*node_get_next_conversion(t_node *node)
 {
-	while (node && (node->type == LIT || node->type == CONVERTED))
+	while (node && (node->type == LIT || node->type == CONV))
 		node = node->next;
 	return (node);
 }

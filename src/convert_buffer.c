@@ -6,23 +6,28 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:43:21 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 22:04:01 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/16 22:44:16 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-static void	convert_node(t_buffer *buf, t_node *node, va_list args)
+static bool	convert_node(t_buffer *buf, t_node *node, va_list args)
 {
+	bool	check;
+
 	if (((t_flags *)node->content)->n_star)
 		va_arg(args, int);
 	if (node->type == CHAR)
-		handle_char(buf, node, va_arg(args, int));
+		check = handle_char(buf, node, va_arg(args, int));
 	if (node->type == STR)
-		handle_str(buf, node, va_arg(args, const char *));
+		check = handle_str(buf, node, va_arg(args, const char *));
 	if (node->type == INT)
-		handle_int(buf, node, va_arg(args, int));
-	node->type = CONVERTED;
+		check = handle_int(buf, node, va_arg(args, int));
+	if (node->type == UINT)
+		check = handle_uint(buf, node, va_arg(args, unsigned int));
+	node->type = CONV;
+	return (check);
 }
 
 bool	convert_buffer(t_buffer *buf, va_list args)
@@ -32,7 +37,8 @@ bool	convert_buffer(t_buffer *buf, va_list args)
 	node = node_get_next_conversion(buf->first);
 	while (node)
 	{
-		convert_node(buf, node, args);
+		if (!convert_node(buf, node, args))
+			return (false);
 		node = node_get_next_conversion(node);
 	}
 	return (true);

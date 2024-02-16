@@ -1,43 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   int_handlers.c                                     :+:      :+:    :+:   */
+/*   uint_handlers.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/15 18:16:24 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 22:49:06 by bazaluga         ###   ########.fr       */
+/*   Created: 2024/02/16 22:10:42 by bazaluga          #+#    #+#             */
+/*   Updated: 2024/02/16 22:43:49 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-static void	modif_adds(char *sp, char *zer, t_flags *f, bool neg)
-{
-	if (f->pad && neg)
-		zer[0] = '-';
-	else if (f->pad && f->plus)
-		zer[0] = '+';
-	else if (f->zero && neg)
-		sp[0] = '-';
-	else if (f->zero && f->plus)
-		sp[0] = '+';
-	else if (f->pad && f->space)
-		zer[0] = ' ';
-}
-
-static bool	int_put_add(t_buffer *buf, t_node *node, bool neg)
+static bool	uint_put_add(t_buffer *buf, t_node *node, t_flags *f)
 {
 	char	*sp;
 	char	*zer;
-	t_flags	*f;
 
 	sp = NULL;
 	zer = NULL;
-	f = (t_flags *)node->content;
 	if (!get_adds(&sp, &zer, f))
 		return (false);
-	modif_adds(sp, zer, f, neg);
 	if (f->minus && !buff_add_after(buf, node, node_new(CONV, f->width, sp)))
 		return (false);
 	if (!f->minus && f->width && !buff_add_before(buf, node,
@@ -48,39 +31,34 @@ static bool	int_put_add(t_buffer *buf, t_node *node, bool neg)
 	return (true);
 }
 
-static bool	handle_flags_int(t_buffer *buf, t_node *node, t_flags *f, char *n)
+static bool	handle_flags_uint(t_buffer *buf, t_node *node, t_flags *f, int len)
 {
-	int		len_n;
-
-	len_n = ft_strlen(n);
-	f->zero &= (!f->dot && (f->width > len_n));
-	f->dot &= f->pad > (len_n - (n[0] == '-'));
-	f->minus &= f->width > len_n;
-	f->space &= n[0] != '-';
-	f->plus &= n[0] != '-';
-	f->pad = f->pad - len_n + (n[0] == '-' || f->plus || f->space);
+	f->zero &= (!f->dot && (f->width > len));
+	f->dot &= f->pad > len;
+	f->minus &= f->width > len;
+	f->pad = f->pad - len;
 	f->pad = (f->pad > 0) * f->pad;
-	f->width = (f->width - len_n - f->pad);
+	f->width = (f->width - len - f->pad);
 	f->width = (f->width > 0) * f->width;
-	return (int_put_add(buf, node, n[0] == '-'));
+	return (uint_put_add(buf, node, f));
 }
 
-bool	handle_int(t_buffer *buf, t_node *node, int arg)
+bool	handle_uint(t_buffer *buf, t_node *node, unsigned int arg)
 {
 	char	*n;
 	t_flags	*f;
+	int		len;
 
 	f = (t_flags *)node->content;
-	n = ft_itoa_printf(arg, f);
+	n = ft_utoa_printf(arg);
 	if (!n)
 		return (false);
-	if (!handle_flags_int(buf, node, f, n))
+	len = ft_strlen(n);
+	if (!handle_flags_uint(buf, node, f, len))
 		return (false);
-	if ((arg < 0 || f->plus || f->space) && (f->pad || f->zero))
-		n[0] = '0';
 	free(node->content);
 	node->content = n;
-	node->len = ft_strlen(n);
+	node->len = len;
 	buf->tot_len += node->len;
 	return (true);
 }
