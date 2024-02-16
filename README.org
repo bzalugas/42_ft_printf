@@ -136,7 +136,7 @@ Behavior:
 - %%: UB
 ** +
 #+begin_quote
-A sign should always be placed before a number porduced by a signed conversion. *+ overrides space*
+A sign should always be placed before a number produced by a signed conversion. *+ overrides space*
 #+end_quote
 Behavior:
 - %c: UB
