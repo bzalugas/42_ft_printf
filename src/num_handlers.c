@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 18:16:24 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 13:31:00 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/16 13:42:07 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ bool	handle_int(t_buffer **buf, t_buffer *node, int arg)
 	char	*n;
 
 	n = ft_itoa(arg);
+	if (!n)
+		return (false);
 	if (!handle_flags_int(buf, node, n))
 		return (false);
 	free(node->content);
