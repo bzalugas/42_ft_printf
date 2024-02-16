@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:39:36 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 11:21:55 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/16 13:44:44 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ bool			flags_get(t_flags **flags, char *str, int *i, va_list args);
 /****************************** UTILS FUNCTIONS *******************************/
 
 unsigned int	ft_abs(int n);
+char			*utoa(unsigned int n);
 
 /****************************** CONVERSIONS PART ******************************/
 
