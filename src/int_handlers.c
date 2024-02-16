@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 18:16:24 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 22:07:12 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/16 22:09:34 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,9 +113,3 @@ bool	handle_int(t_buffer *buf, t_node *node, int arg)
 	buf->tot_len += node->len;
 	return (true);
 }
-
-/* bool	handle_uint(t_buffer **buf, t_buffer *node, unsigned int arg) */
-/* { */
-/* 	char	*n; */
-
-/* } */
