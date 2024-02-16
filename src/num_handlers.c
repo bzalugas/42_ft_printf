@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 18:16:24 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 17:05:00 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/16 17:19:07 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,21 @@ static bool	get_adds(char **sp, char **zer, t_flags *f)
 		ft_memset(*sp, '0', f->width);
 	if (*zer)
 		ft_memset(*zer, '0', f->pad);
-	if (f->pad && f->space)
-		(*zer)[0] = ' ';
 	return (true);
+}
+
+static void	modif_adds(char *sp, char *zer, t_flags *f, bool neg)
+{
+	if (f->pad && neg)
+		zer[0] = '-';
+	else if (f->pad && f->plus)
+		zer[0] = '+';
+	else if (f->zero && neg)
+		sp[0] = '-';
+	else if (f->zero && f->plus)
+		sp[0] = '+';
+	else if (f->pad && f->space)
+		zer[0] = ' ';
 }
 
 static bool	int_put_add(t_buffer **buf, t_buffer *node, bool neg)
@@ -52,14 +64,7 @@ static bool	int_put_add(t_buffer **buf, t_buffer *node, bool neg)
 	f = (t_flags *)node->content;
 	if (!get_adds(&sp, &zer, f))
 		return (false);
-	if (f->pad && neg)
-		zer[0] = '-';
-	else if (f->pad && f->plus)
-		zer[0] = '+';
-	else if (f->zero && neg)
-		sp[0] = '-';
-	else if (f->zero && f->plus)
-		sp[0] = '+';
+	modif_adds(sp, zer, f, neg);
 	if (f->minus && !buff_add_after(node, buff_new(LIT, f->width, sp)))
 		return (false);
 	if (!f->minus && f->width && !buff_add_before(buf, node,
