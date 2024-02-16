@@ -5,84 +5,72 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/08 17:58:25 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 10:40:45 by bazaluga         ###   ########.fr       */
+/*   Created: 2024/02/16 18:11:54 by bazaluga          #+#    #+#             */
+/*   Updated: 2024/02/16 18:20:28 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-t_buffer	*buff_new(t_type type, int len, void *content)
+t_buffer	*buff_init()
 {
-	t_buffer	*new;
+	t_buffer	*buf;
 
-	new = (t_buffer *)malloc(sizeof(t_buffer));
-	if (!new)
+	buf = (t_buffer *)malloc(sizeof(t_buffer));
+	if (!buf)
 		return (NULL);
-	new->type = type;
-	new->len = len;
-	new->content = content;
-	new->next = NULL;
-	return (new);
+	buf->tot_len = 0;
+	buf->first = NULL;
+	return (buf);
 }
 
-bool	buff_add_back(t_buffer **buff, t_buffer *new)
+bool	buff_add_back(t_buffer *buf, t_node *new)
 {
-	t_buffer	*tmp;
+	t_node	*tmp;
 
-	if (!new || !buff)
+	if (!new || !buf)
 		return (false);
-	if (!*buff)
-		*buff = new;
+	if (!buf->first)
+		buf->first = new;
 	else
 	{
-		tmp = *buff;
+		tmp = buf->first;
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = new;
 	}
-	buff_update_len(new->len);
+	buf->tot_len += new->len;
 	return (true);
 }
 
-bool	buff_add_after(t_buffer *node, t_buffer *new)
+bool	buff_add_after(t_buffer *buf, t_node *node, t_node *new)
 {
 	if (!node || !new)
 		return (false);
 	new->next = node->next;
 	node->next = new;
-	buff_update_len(new->len);
+	buf->tot_len += new->len;
 	return (true);
 }
 
-bool	buff_add_before(t_buffer **buff, t_buffer *node, t_buffer *new)
+bool	buff_add_before(t_buffer *buf, t_node *node, t_node *new)
 {
-	t_buffer	*tmp;
+	t_node	*tmp;
 
-	if (!buff || !node || !new)
+	if (!buf || !node || !new)
 		return (false);
 	new->next = node;
-	if (*buff == node)
-		*buff = new;
+	if (buf->first == node)
+		buf->first = new;
 	else
 	{
-		tmp = *buff;
+		tmp = buf->first;
 		while (tmp && tmp->next != node)
 			tmp = tmp->next;
 		if (!tmp)
 			return (false);
 		tmp->next = new;
 	}
-	buff_update_len(new->len);
+	buf->tot_len += new->len;
 	return (true);
-}
-
-void	buff_reset_node(t_buffer *node)
-{
-	node->type = 0;
-	node->len = 0;
-	if (node->content)
-		free(node->content);
-	node->content = NULL;
-	node->next = NULL;
 }

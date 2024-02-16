@@ -6,13 +6,13 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:41:39 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 10:43:24 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/16 18:35:58 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-bool	handle_char(t_buffer *node, int c)
+bool	handle_char(t_buffer *buf, t_node *node, int c)
 {
 	int		len;
 	char	*res;
@@ -30,12 +30,12 @@ bool	handle_char(t_buffer *node, int c)
 	free(node->content);
 	node->content = res;
 	node->type = LIT;
-	buff_update_len(len);
+	buf->tot_len += len;
 	node->len = len;
 	return (true);
 }
 
-static bool	handle_flags_str(t_buffer **buf, t_buffer *node, const char *str)
+static bool	handle_flags_str(t_buffer *buf, t_node *node, const char *str)
 {
 	int			len_add;
 	int			len_str;
@@ -58,11 +58,11 @@ static bool	handle_flags_str(t_buffer **buf, t_buffer *node, const char *str)
 		return (false);
 	ft_memset(add, ' ', len_add);
 	if (f->minus && f->width)
-		return (buff_add_after(node, buff_new(LIT, len_add, add)));
-	return (buff_add_before(buf, node, buff_new(LIT, len_add, add)));
+		return (buff_add_after(buf, node, node_new(LIT, len_add, add)));
+	return (buff_add_before(buf, node, node_new(LIT, len_add, add)));
 }
 
-bool	handle_str(t_buffer **buf, t_buffer *node, const char *str)
+bool	handle_str(t_buffer *buf, t_node *node, const char *str)
 {
 	t_flags	*f;
 
@@ -75,7 +75,7 @@ bool	handle_str(t_buffer **buf, t_buffer *node, const char *str)
 		node->content = ft_strdup(str);
 	node->type = LIT;
 	node->len = ft_strlen((char *)node->content);
-	buff_update_len(node->len);
+	buf->tot_len += node->len;
 	free(f);
 	return (true);
 }

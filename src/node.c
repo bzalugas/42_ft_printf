@@ -1,39 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buffer2.c                                          :+:      :+:    :+:   */
+/*   node.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/13 02:29:26 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 18:47:26 by bazaluga         ###   ########.fr       */
+/*   Created: 2024/02/08 17:58:25 by bazaluga          #+#    #+#             */
+/*   Updated: 2024/02/16 18:48:03 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-void	*buff_clear(t_buffer **buf)
+t_node	*node_new(t_type type, int len, void *content)
 {
-	t_node	*tmp;
-	t_node	*tmp2;
+	t_node	*new;
 
-	tmp = (*buf)->first;
-	while (tmp)
-	{
-		tmp2 = tmp->next;
-		if (tmp->type != LIT)
-			free(tmp->content);
-		free(tmp);
-		tmp = tmp2;
-	}
-	free(*buf);
-	return (NULL);
+	new = (t_node *)malloc(sizeof(t_node));
+	if (!new)
+		return (NULL);
+	new->type = type;
+	new->len = len;
+	new->content = content;
+	new->next = NULL;
+	return (new);
 }
 
-/* int	buff_update_len(size_t to_add) */
-/* { */
-/* 	static int	total = 0; */
-
-/* 	total += to_add; */
-/* 	return (total); */
-/* } */
+t_node	*node_get_next_conversion(t_node *node)
+{
+	while (node && (node->type == LIT || node->type == CONVERTED))
+		node = node->next;
+	return (node);
+}

@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:39:36 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 16:16:06 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/16 18:46:11 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ typedef enum e_type
 	LHEX,
 	UHEX,
 	PTR,
-	PERCENT
+	PERCENT,
+	CONVERTED
 }			t_type;
 
 /* width is used for min_width & minus & 0 flags
@@ -54,23 +55,32 @@ typedef struct s_flags
 	int				n_star;
 }				t_flags;
 
-typedef struct s_buffer
+typedef struct s_node
 {
 	t_type			type;
 	int				len;
 	void			*content;
-	struct s_buffer	*next;
+	struct s_node	*next;
+}				t_node;
+
+typedef struct s_buffer
+{
+	int		tot_len;
+	t_node	*first;
 }				t_buffer;
 
-/****************************** BUFFER FUNCTIONS ******************************/
+/************************** BUFFER & NODE FUNCTIONS ***************************/
 
-t_buffer		*buff_new(t_type type, int len, void *content);
-bool			buff_add_back(t_buffer **buff, t_buffer *new);
-bool			buff_add_after(t_buffer *node, t_buffer *new);
-bool			buff_add_before(t_buffer **buff, t_buffer *node, t_buffer *new);
-void			*buff_clear(t_buffer **buff);
-int				buff_update_len(size_t to_add);
-t_buffer		*buff_get_next_conversion(t_buffer *node);
+t_buffer		*buff_init();
+bool			buff_add_back(t_buffer *buf, t_node *new);
+bool			buff_add_after(t_buffer *buf, t_node *node, t_node *new);
+bool			buff_add_before(t_buffer *buf, t_node *node, t_node *new);
+void			*buff_clear(t_buffer **buf);
+
+t_node			*node_get_next_conversion(t_node *node);
+t_node			*node_new(t_type type, int len, void *content);
+
+/* int				buff_update_len(size_t to_add); */
 
 /************************* FLAGS PARSING FUNCTIONS ****************************/
 
@@ -84,11 +94,11 @@ char			*utoa(unsigned int n);
 
 /****************************** CONVERSIONS PART ******************************/
 
-bool			convert_buffer(t_buffer **buf, va_list args);
+bool			convert_buffer(t_buffer *buf, va_list args);
 
-bool			handle_char(t_buffer *node, int c);
-bool			handle_str(t_buffer **buf, t_buffer *node, const char *str);
-bool			handle_int(t_buffer **buf, t_buffer *node, int arg);
+bool			handle_char(t_buffer *buf, t_node *node, int c);
+bool			handle_str(t_buffer *buf, t_node *node, const char *str);
+bool			handle_int(t_buffer *buf, t_node *node, int arg);
 
 /********************************* FT_PRINTF **********************************/
 

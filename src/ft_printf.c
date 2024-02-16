@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 23:39:50 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 10:29:01 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/16 18:48:57 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static t_type	get_type(char c) // in utils ?
 	return (ERR);
 }
 
-static bool	parse(t_buffer **buf, char *str, int *i, va_list args)
+static bool	parse(t_buffer *buf, char *str, int *i, va_list args)
 {
 	t_flags	*flags;
 	t_type	type;
@@ -41,7 +41,7 @@ static bool	parse(t_buffer **buf, char *str, int *i, va_list args)
 	if (*i > 0)
 	{
 		str[*i] = '\0';
-		if (!buff_add_back(buf, buff_new(LIT, (*i)++, str)))
+		if (!buff_add_back(buf, node_new(LIT, (*i)++, str)))
 			return (false);
 	}
 	else
@@ -49,7 +49,7 @@ static bool	parse(t_buffer **buf, char *str, int *i, va_list args)
 	if (!flags_get(&flags, str, i, args))
 		return (false);
 	type = get_type(str[*i]);
-	if (type == ERR || !buff_add_back(buf, buff_new(type, 0, flags)))
+	if (type == ERR || !buff_add_back(buf, node_new(type, 0, flags)))
 	{
 		free(flags);
 		return (false);
@@ -57,7 +57,7 @@ static bool	parse(t_buffer **buf, char *str, int *i, va_list args)
 	return (true);
 }
 
-static int	tokenize(t_buffer **buf, char *str, va_list args)
+static int	tokenize(t_buffer *buf, char *str, va_list args)
 {
 	int		i;
 
@@ -77,29 +77,32 @@ static int	tokenize(t_buffer **buf, char *str, va_list args)
 		i++;
 	}
 	if (i > 0)
-		return (buff_add_back(buf, buff_new(LIT, i, str)) - 1);
+		return (buff_add_back(buf, node_new(LIT, i, str)) - 1);
 	return (0);
 }
 #include <stdio.h>
 void	print_buff(t_buffer *buf)
 {
-	printf("total len = %d\n", buff_update_len(0));
-	while (buf)
+	t_node	*node;
+
+	printf("total len = %d\n", buf->tot_len);
+	node = buf->first;
+	while (node)
 	{
-		if (buf->type == LIT)
-			write(1, buf->content, buf->len);
+		if (node->type == LIT || node->type == CONVERTED)
+			write(1, node->content, node->len);
 		else
 		{
 			printf("<-:%d 0:%d .:%d #:%d s:%d +:%d w:%d p:%d type:%d>",
-				((t_flags*)buf->content)->minus,
-				((t_flags*)buf->content)->zero, ((t_flags*)buf->content)->dot,
-				((t_flags*)buf->content)->sharp, ((t_flags*)buf->content)->space,
-				((t_flags*)buf->content)->plus, ((t_flags*)buf->content)->width,
-				((t_flags*)buf->content)->pad, buf->type);
+				((t_flags*)node->content)->minus,
+				((t_flags*)node->content)->zero, ((t_flags*)node->content)->dot,
+				((t_flags*)node->content)->sharp, ((t_flags*)node->content)->space,
+				((t_flags*)node->content)->plus, ((t_flags*)node->content)->width,
+				((t_flags*)node->content)->pad, node->type);
 			fflush(stdout);
 		}
 
-		buf = buf->next;
+		node = node->next;
 	}
 }
 
@@ -110,18 +113,20 @@ int	ft_printf(const char *format, ...)
 	char		*str;
 	int			count;
 
-	buf = NULL;
 	if (!format)
+		return (-1);
+	buf = buff_init();
+	if (!buf)
 		return (-1);
 	str = ft_strdup(format);
 	va_start(args, format);
-	count = tokenize(&buf, str, args);
+	count = tokenize(buf, str, args);
 	if (!buf)
 		return (-1);
-	convert_buffer(&buf, args);
+	convert_buffer(buf, args);
 	print_buff(buf);
 	if (!count)
-		count = buff_update_len(0);
+		count = buf->tot_len;
 	free(str);
 	buff_clear(&buf);
 	va_end(args);

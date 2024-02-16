@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 18:16:24 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 17:19:07 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/16 18:38:13 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	modif_adds(char *sp, char *zer, t_flags *f, bool neg)
 		zer[0] = ' ';
 }
 
-static bool	int_put_add(t_buffer **buf, t_buffer *node, bool neg)
+static bool	int_put_add(t_buffer *buf, t_node *node, bool neg)
 {
 	char	*sp;
 	char	*zer;
@@ -65,17 +65,17 @@ static bool	int_put_add(t_buffer **buf, t_buffer *node, bool neg)
 	if (!get_adds(&sp, &zer, f))
 		return (false);
 	modif_adds(sp, zer, f, neg);
-	if (f->minus && !buff_add_after(node, buff_new(LIT, f->width, sp)))
+	if (f->minus && !buff_add_after(buf, node, node_new(LIT, f->width, sp)))
 		return (false);
 	if (!f->minus && f->width && !buff_add_before(buf, node,
-						buff_new(LIT, f->width, sp)))
+									node_new(LIT, f->width, sp)))
 		return (false);
-	if (f->pad && !buff_add_before(buf, node, buff_new(LIT, f->pad, zer)))
+	if (f->pad && !buff_add_before(buf, node, node_new(LIT, f->pad, zer)))
 		return (false);
 	return (true);
 }
 
-static bool	handle_flags_int(t_buffer **buf, t_buffer *node, char *n)
+static bool	handle_flags_int(t_buffer *buf, t_node *node, char *n)
 {
 	int		len_n;
 	t_flags	*f;
@@ -94,7 +94,7 @@ static bool	handle_flags_int(t_buffer **buf, t_buffer *node, char *n)
 	return (int_put_add(buf, node, n[0] == '-'));
 }
 
-bool	handle_int(t_buffer **buf, t_buffer *node, int arg)
+bool	handle_int(t_buffer *buf, t_node *node, int arg)
 {
 	char	*n;
 	t_flags	*f;
@@ -110,7 +110,7 @@ bool	handle_int(t_buffer **buf, t_buffer *node, int arg)
 	free(node->content);
 	node->content = n;
 	node->len = ft_strlen(n);
-	buff_update_len(node->len);
+	buf->tot_len += node->len;
 	return (true);
 }
 
