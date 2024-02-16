@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:39:36 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 13:44:44 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/16 16:16:06 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,10 @@ typedef enum e_type
 	PERCENT
 }			t_type;
 
-/* width is used for min_width & minus flags
- * pad for dot & 0 flags
+/* width is used for min_width & minus & 0 flags
+ * pad for dot
  *
- * if width set but minus off, width is for min_width
- * if 0 & dot set, width is for 0 & pad for dot */
+ * if width set but minus off, width is for min_width */
 
 typedef struct s_flags
 {
@@ -80,6 +79,7 @@ bool			flags_get(t_flags **flags, char *str, int *i, va_list args);
 /****************************** UTILS FUNCTIONS *******************************/
 
 unsigned int	ft_abs(int n);
+char			*ft_itoa_printf(int n, t_flags *f);
 char			*utoa(unsigned int n);
 
 /****************************** CONVERSIONS PART ******************************/

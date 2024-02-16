@@ -6,30 +6,42 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 18:16:24 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 13:48:56 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/16 17:05:00 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-static bool	check_allocs(bool def1, char *s1, bool def2, char *s2)
+static bool	get_adds(char **sp, char **zer, t_flags *f)
 {
-	if (!s1 && def1 && s2)
+	if (f->width)
+		*sp = (char *)ft_calloc(f->width, sizeof(char));
+	if (f->pad)
+		*zer = (char *)ft_calloc(f->pad, sizeof(char));
+	if (!*sp && f->width && *zer)
 	{
-		free(s2);
+		free(*zer);
 		return (false);
 	}
-	if (s1 && !s2 && def2)
+	if (*sp && !*zer && f->pad)
 	{
-		free(s1);
+		free(*sp);
 		return (false);
 	}
-	if (!s1 && !s2 && def1 && def2)
+	if (!*sp && !*zer && f->width && f->pad)
 		return (false);
+	if (*sp && !f->zero)
+		ft_memset(*sp, ' ', f->width);
+	if (*sp && f->zero)
+		ft_memset(*sp, '0', f->width);
+	if (*zer)
+		ft_memset(*zer, '0', f->pad);
+	if (f->pad && f->space)
+		(*zer)[0] = ' ';
 	return (true);
 }
 
-static bool	int_put_add(t_buffer **buf, t_buffer *node)
+static bool	int_put_add(t_buffer **buf, t_buffer *node, bool neg)
 {
 	char	*sp;
 	char	*zer;
@@ -38,16 +50,16 @@ static bool	int_put_add(t_buffer **buf, t_buffer *node)
 	sp = NULL;
 	zer = NULL;
 	f = (t_flags *)node->content;
-	if (f->width)
-		sp = (char *)ft_calloc(f->width, sizeof(char));
-	if (f->pad)
-		zer = (char *)ft_calloc(f->pad, sizeof(char));
-	if (!check_allocs(f->width, sp, f->pad, zer))
+	if (!get_adds(&sp, &zer, f))
 		return (false);
-	if (sp)
-		ft_memset(sp, ' ', f->width);
-	if (zer)
-		ft_memset(zer, '0', f->pad);
+	if (f->pad && neg)
+		zer[0] = '-';
+	else if (f->pad && f->plus)
+		zer[0] = '+';
+	else if (f->zero && neg)
+		sp[0] = '-';
+	else if (f->zero && f->plus)
+		sp[0] = '+';
 	if (f->minus && !buff_add_after(node, buff_new(LIT, f->width, sp)))
 		return (false);
 	if (!f->minus && f->width && !buff_add_before(buf, node,
@@ -65,23 +77,31 @@ static bool	handle_flags_int(t_buffer **buf, t_buffer *node, char *n)
 
 	f = (t_flags *)node->content;
 	len_n = ft_strlen(n);
-	f->zero &= !f->dot && f->pad > len_n;
-	f->dot &= f->pad > len_n;
+	f->zero &= !f->dot && f->width > len_n;
+	f->dot &= f->pad > (len_n - n[0] == '-');
 	f->minus &= f->width > len_n;
-	f->pad = (f->pad > 0) * (f->pad - len_n);
-	f->width = (f->width > 0) * (f->width - len_n - f->pad);
-	return (int_put_add(buf, node));
+	f->space &= n[0] != '-';
+	f->plus &= n[0] != '-';
+	f->pad = f->pad - len_n + (n[0] == '-' || f->plus || f->space);
+	f->pad = (f->pad > 0) * f->pad;
+	f->width = (f->width - len_n - f->pad);
+	f->width = (f->width > 0) * f->width;
+	return (int_put_add(buf, node, n[0] == '-'));
 }
 
 bool	handle_int(t_buffer **buf, t_buffer *node, int arg)
 {
 	char	*n;
-/* /!\ TO HANDLE NEG NUMBERS IN FLAGS /!\ */
-	n = ft_itoa(arg);
+	t_flags	*f;
+
+	f = (t_flags *)node->content;
+	n = ft_itoa_printf(arg, f);
 	if (!n)
 		return (false);
 	if (!handle_flags_int(buf, node, n))
 		return (false);
+	if ((arg < 0 || f->plus || f->space) && (f->pad || f->zero))
+		n[0] = '0';
 	free(node->content);
 	node->content = n;
 	node->len = ft_strlen(n);

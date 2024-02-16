@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 07:57:58 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/15 17:48:03 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/16 16:17:01 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,7 @@ bool	flags_get(t_flags **flags, char *str, int *i, va_list args)
 			(*flags)->width = flags_handle_star(*flags, str, i, args);
 		else if (ft_isdigit(str[*i]) && str[*i] != '0')
 		{
-			if (*i > 0 && str[(*i) - 1] == '.' && (*flags)->zero)
-				(*flags)->width = (*flags)->pad;
-			if ((*flags)->dot || (*flags)->zero)
+			if ((*flags)->dot)
 				(*flags)->pad = ft_atoi(&str[*i]);
 			else
 				(*flags)->width = ft_atoi(&str[*i]);
