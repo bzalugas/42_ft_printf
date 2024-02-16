@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:29:26 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 18:47:26 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/16 19:25:16 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,55 @@ void	*buff_clear(t_buffer **buf)
 	}
 	free(*buf);
 	return (NULL);
+}
+
+static size_t	buffcpy(char *dst, t_buffer *buf)
+{
+	size_t	ret;
+	size_t	tot;
+	t_node	*node;
+
+	ret = 0;
+	tot = 0;
+	node = buf->first;
+	while (node)
+	{
+		ret = ft_strlcpy(dst + tot, (const char *)node->content, node->len + 1);
+		if (ret != (size_t)node->len)
+			return (0);
+		tot += ret;
+		node = node->next;
+	}
+	return (tot);
+}
+
+int	buff_print(t_buffer *buf)
+{
+	char	*str;
+	ssize_t	ret;
+
+	if (!buf)
+		return (0);
+	str = (char *)ft_calloc(buf->tot_len + 1, sizeof(char));
+	if (!str)
+		return (0);
+	if (buffcpy(str, buf) != (size_t)buf->tot_len)
+	{
+		free(str);
+		return (0);
+	}
+	ret = write(1, str, buf->tot_len);
+	while (ret != (ssize_t)buf->tot_len)
+	{
+		if (ret == -1)
+		{
+			free(str);
+			return (0);
+		}
+		ret += write(1, str, buf->tot_len - ret);
+	}
+	free(str);
+	return ((int)ret);
 }
 
 /* int	buff_update_len(size_t to_add) */
