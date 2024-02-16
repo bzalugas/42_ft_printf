@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 18:16:24 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 13:42:07 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/16 13:48:56 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static bool	handle_flags_int(t_buffer **buf, t_buffer *node, char *n)
 bool	handle_int(t_buffer **buf, t_buffer *node, int arg)
 {
 	char	*n;
-
+/* /!\ TO HANDLE NEG NUMBERS IN FLAGS /!\ */
 	n = ft_itoa(arg);
 	if (!n)
 		return (false);
@@ -88,3 +88,10 @@ bool	handle_int(t_buffer **buf, t_buffer *node, int arg)
 	buff_update_len(node->len);
 	return (true);
 }
+
+/* bool	handle_uint(t_buffer **buf, t_buffer *node, unsigned int arg) */
+/* { */
+/* 	char	*n; */
+
+
+/* } */

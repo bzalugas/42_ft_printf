@@ -6,8 +6,8 @@
 
 int	main(void)
 {
-	/* return (ft_printf("%.1s", "abc")); */
-	printf("%.*$2$d", 3, 12, 4);
+	return (ft_printf("%.5d", -23));
+	/* return (printf("%.5d", -23)); */
 	/* return (printf("%-10.1s", "abcde")); */
 	/* printf("%d\n", 15 % 10); */
 	return (0);
