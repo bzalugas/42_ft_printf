@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:43:21 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/15 20:21:00 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/16 10:34:35 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static void	convert_node(t_buffer **buf, t_buffer *node, va_list args)
 		handle_char(node, va_arg(args, int));
 	if (node->type == STR)
 		handle_str(buf, node, va_arg(args, const char *));
-	/* if (node->type == PTR) */
 	if (node->type == INT)
 		handle_int(buf, node, va_arg(args, int));
 	node->type = LIT;

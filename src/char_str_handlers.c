@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:41:39 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/15 18:14:17 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/16 10:43:24 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ bool	handle_char(t_buffer *node, int c)
 	return (true);
 }
 
-static bool	handle_flags_str(t_buffer **buf, t_buffer *node, char *str)
+static bool	handle_flags_str(t_buffer **buf, t_buffer *node, const char *str)
 {
 	int			len_add;
 	int			len_str;
@@ -57,7 +57,6 @@ static bool	handle_flags_str(t_buffer **buf, t_buffer *node, char *str)
 	if (!add)
 		return (false);
 	ft_memset(add, ' ', len_add);
-	buff_update_len(len_add);
 	if (f->minus && f->width)
 		return (buff_add_after(node, buff_new(LIT, len_add, add)));
 	return (buff_add_before(buf, node, buff_new(LIT, len_add, add)));
@@ -73,7 +72,7 @@ bool	handle_str(t_buffer **buf, t_buffer *node, const char *str)
 	if (f->dot)
 		node->content = ft_strndup(str, f->pad);
 	else
-		node->content = str;
+		node->content = ft_strdup(str);
 	node->type = LIT;
 	node->len = ft_strlen((char *)node->content);
 	buff_update_len(node->len);

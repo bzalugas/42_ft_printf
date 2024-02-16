@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:39:36 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/15 20:20:42 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/16 11:21:55 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ typedef enum e_type
 
 /* width is used for min_width & minus flags
  * pad for dot & 0 flags
- * if width set but minus off, width is for min_width */
+ *
+ * if width set but minus off, width is for min_width
+ * if 0 & dot set, width is for 0 & pad for dot */
 
 typedef struct s_flags
 {

@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 23:39:50 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/13 17:09:34 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/16 10:29:01 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ static t_type	get_type(char c) // in utils ?
 		return (CHAR);
 	if (c == 's')
 		return (STR);
-	if (c == 'p')
-		return (PTR);
 	if (c == 'd' || c == 'i')
 		return (INT);
 	if (c == 'u')
@@ -28,6 +26,8 @@ static t_type	get_type(char c) // in utils ?
 		return (LHEX);
 	if (c == 'X')
 		return (UHEX);
+	if (c == 'p')
+		return (PTR);
 	if (c == '%')
 		return (PERCENT);
 	return (ERR);
