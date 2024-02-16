@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:43:21 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 18:46:48 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/16 22:04:01 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	convert_node(t_buffer *buf, t_node *node, va_list args)
 {
-	if (((t_flags *)node->content)->n_star)//only for *, not for *x$
+	if (((t_flags *)node->content)->n_star)
 		va_arg(args, int);
 	if (node->type == CHAR)
 		handle_char(buf, node, va_arg(args, int));

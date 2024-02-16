@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 07:57:58 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 16:17:01 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/16 21:56:31 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ static void	flags_from_char(t_flags *flags, char c)
 
 bool	flags_get(t_flags **flags, char *str, int *i, va_list args)
 {
-	// Abort when same flag multiple times ?
 	*flags = flags_init();
 	if (!*flags || !str[*i])
 		return (false);

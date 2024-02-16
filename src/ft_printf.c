@@ -6,13 +6,13 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 23:39:50 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 19:28:29 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/16 21:55:31 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-static t_type	get_type(char c) // in utils ?
+static t_type	get_type(char c)
 {
 	if (c == 'c')
 		return (CHAR);
@@ -60,7 +60,6 @@ static bool	parse(t_buffer *buf, char *str, int *i, va_list args)
 static int	tokenize(t_buffer *buf, char *str, va_list args)
 {
 	int		i;
-
 	bool	check;
 
 	i = 0;
@@ -80,32 +79,6 @@ static int	tokenize(t_buffer *buf, char *str, va_list args)
 		return (buff_add_back(buf, node_new(LIT, i, str)) - 1);
 	return (0);
 }
-
-/* #include <stdio.h> */
-/* void	print_buff(t_buffer *buf) */
-/* { */
-/* 	t_node	*node; */
-
-/* 	printf("total len = %d\n", buf->tot_len); */
-/* 	node = buf->first; */
-/* 	while (node) */
-/* 	{ */
-/* 		if (node->type == LIT || node->type == CONVERTED) */
-/* 			write(1, node->content, node->len); */
-/* 		else */
-/* 		{ */
-/* 			printf("<-:%d 0:%d .:%d #:%d s:%d +:%d w:%d p:%d type:%d>", */
-/* 				((t_flags*)node->content)->minus, */
-/* 				((t_flags*)node->content)->zero, ((t_flags*)node->content)->dot, */
-/* 				((t_flags*)node->content)->sharp, ((t_flags*)node->content)->space, */
-/* 				((t_flags*)node->content)->plus, ((t_flags*)node->content)->width, */
-/* 				((t_flags*)node->content)->pad, node->type); */
-/* 			fflush(stdout); */
-/* 		} */
-
-/* 		node = node->next; */
-/* 	} */
-/* } */
 
 int	ft_printf(const char *format, ...)
 {

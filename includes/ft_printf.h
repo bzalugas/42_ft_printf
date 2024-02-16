@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:39:36 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 19:21:37 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/16 22:03:50 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef struct s_buffer
 
 /************************** BUFFER & NODE FUNCTIONS ***************************/
 
-t_buffer		*buff_init();
+t_buffer		*buff_init(void);
 bool			buff_add_back(t_buffer *buf, t_node *new);
 bool			buff_add_after(t_buffer *buf, t_node *node, t_node *new);
 bool			buff_add_before(t_buffer *buf, t_node *node, t_node *new);

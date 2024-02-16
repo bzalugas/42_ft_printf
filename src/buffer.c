@@ -6,13 +6,13 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 18:11:54 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 18:20:28 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/16 22:03:36 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-t_buffer	*buff_init()
+t_buffer	*buff_init(void)
 {
 	t_buffer	*buf;
 

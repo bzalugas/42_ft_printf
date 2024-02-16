@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 18:16:24 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 18:38:13 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/16 22:07:12 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static bool	int_put_add(t_buffer *buf, t_node *node, bool neg)
 	if (f->minus && !buff_add_after(buf, node, node_new(LIT, f->width, sp)))
 		return (false);
 	if (!f->minus && f->width && !buff_add_before(buf, node,
-									node_new(LIT, f->width, sp)))
+			node_new(LIT, f->width, sp)))
 		return (false);
 	if (f->pad && !buff_add_before(buf, node, node_new(LIT, f->pad, zer)))
 		return (false);
@@ -82,7 +82,7 @@ static bool	handle_flags_int(t_buffer *buf, t_node *node, char *n)
 
 	f = (t_flags *)node->content;
 	len_n = ft_strlen(n);
-	f->zero &= !f->dot && f->width > len_n;
+	f->zero &= (!f->dot && (f->width > len_n));
 	f->dot &= f->pad > (len_n - n[0] == '-');
 	f->minus &= f->width > len_n;
 	f->space &= n[0] != '-';
@@ -117,6 +117,5 @@ bool	handle_int(t_buffer *buf, t_node *node, int arg)
 /* bool	handle_uint(t_buffer **buf, t_buffer *node, unsigned int arg) */
 /* { */
 /* 	char	*n; */
-
 
 /* } */

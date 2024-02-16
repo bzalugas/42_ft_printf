@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:41:39 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 18:35:58 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/16 21:56:03 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static bool	handle_flags_str(t_buffer *buf, t_node *node, const char *str)
 		f->dot = 0;
 	if (f->dot && f->width > len_str - (len_str - f->pad))
 		len_add = f->width - (len_str - (len_str - f->pad));
-	else if(!f->dot)
+	else if (!f->dot)
 		len_add = f->width - len_str;
 	if (len_add < 1)
 		return (true);
