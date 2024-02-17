@@ -3,4 +3,6 @@
 *.out
 */*.o
 */*.d
+ft_printf_tester/
+printfTester/
 *.dSYM
