@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:43:21 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 22:44:16 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/16 23:35:53 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static bool	convert_node(t_buffer *buf, t_node *node, va_list args)
 		check = handle_int(buf, node, va_arg(args, int));
 	if (node->type == UINT)
 		check = handle_uint(buf, node, va_arg(args, unsigned int));
+	if (node->type == LHEX || node->type == UHEX)
+		check = handle_hex(buf, node, va_arg(args, unsigned int));
 	node->type = CONV;
 	return (check);
 }

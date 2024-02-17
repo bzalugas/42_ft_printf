@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:21:03 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 22:48:08 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/17 00:58:21 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,48 @@ char	*ft_utoa_printf(unsigned int n)
 		n /= 10;
 		len--;
 	}
+	return (res);
+}
+
+static int	len_uint_hex(unsigned long n)
+{
+	int	len;
+
+	len = 1;
+	while (n > 16)
+	{
+		n /= 16;
+		len++;
+	}
+	return (len);
+}
+
+char	*ft_utohex_printf(unsigned long n, bool lower)
+{
+	int		len;
+	char	*res;
+
+	/* len = len_uint_hex(n) + (sharp * 2); */
+	len = len_uint_hex(n);
+	res = (char *)ft_calloc(len + 1, sizeof(char));
+	if (!res)
+		return (NULL);
+	while (len)
+	{
+		if (lower)
+			res[len - 1] = "0123456789abcdef"[n % 16];
+		else
+			res[len - 1] = "0123456789ABCDEF"[n % 16];
+		n /= 16;
+		len--;
+	}
+	/* if (sharp) */
+	/* { */
+	/* 	res[0] = '0'; */
+	/* 	if (lower) */
+	/* 		res[1] = 'x'; */
+	/* 	else */
+	/* 		res[1] = 'X'; */
+	/* } */
 	return (res);
 }

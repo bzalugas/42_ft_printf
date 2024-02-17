@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:39:36 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 22:48:16 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/17 00:58:10 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,11 @@ bool			flags_get(t_flags **flags, char *str, int *i, va_list args);
 
 char			*ft_itoa_printf(int n, t_flags *f);
 char			*ft_utoa_printf(unsigned int n);
+char			*ft_utohex_printf(unsigned long n, bool lower);
 
 /********************************** HELPER ************************************/
 
-bool			get_adds(char **sp, char **zer, t_flags *f);
+bool			get_int_uint_adds(char **sp, char **zer, t_flags *f);
 
 /****************************** CONVERSIONS PART ******************************/
 
@@ -104,6 +105,7 @@ bool			handle_char(t_buffer *buf, t_node *node, int c);
 bool			handle_str(t_buffer *buf, t_node *node, const char *str);
 bool			handle_int(t_buffer *buf, t_node *node, int arg);
 bool			handle_uint(t_buffer *buf, t_node *node, unsigned int arg);
+bool			handle_hex(t_buffer *buf, t_node *node, unsigned int arg);
 
 /********************************* FT_PRINTF **********************************/
 

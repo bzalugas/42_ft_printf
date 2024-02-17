@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 18:16:24 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 22:49:06 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/16 23:21:16 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static bool	int_put_add(t_buffer *buf, t_node *node, bool neg)
 	sp = NULL;
 	zer = NULL;
 	f = (t_flags *)node->content;
-	if (!get_adds(&sp, &zer, f))
+	if (!get_int_uint_adds(&sp, &zer, f))
 		return (false);
 	modif_adds(sp, zer, f, neg);
 	if (f->minus && !buff_add_after(buf, node, node_new(CONV, f->width, sp)))
