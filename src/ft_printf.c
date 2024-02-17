@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 23:39:50 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/17 05:43:25 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/17 07:12:56 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ int	ft_printf(const char *format, ...)
 	if (!convert_buffer(buf, args))
 		return (va_end(args), buff_clear(&buf), -1);
 	count = buff_print(buf);
-	/* count = buff_special_print(buf, count); */
 	free(str);
 	buff_clear(&buf);
 	va_end(args);
