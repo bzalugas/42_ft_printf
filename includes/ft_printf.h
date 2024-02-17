@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:39:36 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/17 02:11:21 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/17 06:05:09 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,22 +50,22 @@ typedef struct s_flags
 	unsigned char	sharp:1;
 	unsigned char	space:1;
 	unsigned char	plus:1;
-	int				width;
-	int				pad;
+	ssize_t			width;
+	ssize_t			pad;
 	int				n_star;
 }				t_flags;
 
 typedef struct s_node
 {
 	t_type			type;
-	int				len;
+	size_t			len;
 	void			*content;
 	struct s_node	*next;
 }				t_node;
 
 typedef struct s_buffer
 {
-	int		tot_len;
+	size_t	tot_len;
 	t_node	*first;
 }				t_buffer;
 
@@ -76,22 +76,25 @@ bool			buff_add_back(t_buffer *buf, t_node *new);
 bool			buff_add_after(t_buffer *buf, t_node *node, t_node *new);
 bool			buff_add_before(t_buffer *buf, t_node *node, t_node *new);
 void			*buff_clear(t_buffer **buf);
-int				buff_print(t_buffer *buf);
+size_t			buff_print(t_buffer *buf);
+size_t			buff_special_print(t_buffer *buf, int count);
 
 t_node			*node_get_next_conversion(t_node *node);
-t_node			*node_new(t_type type, int len, void *content);
+t_node			*node_new(t_type type, size_t len, void *content);
 
 /* int				buff_update_len(size_t to_add); */
 
 /************************* FLAGS PARSING FUNCTIONS ****************************/
 
-bool			flags_get(t_flags **flags, char *str, int *i, va_list args);
+bool			flags_get(t_flags *flags, char *str, int *i, va_list args);
+t_flags			*flags_init(void);
 
 /****************************** UTILS FUNCTIONS *******************************/
 
 char			*ft_itoa_printf(int n, t_flags *f);
 char			*ft_utoa_printf(unsigned int n);
 char			*ft_utohex_printf(unsigned long n, bool lower);
+long			ft_atol(const char *nptr);
 
 /********************************** HELPER ************************************/
 

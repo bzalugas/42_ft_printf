@@ -1,32 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/17 11:02:31 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/17 05:34:26 by bazaluga         ###   ########.fr       */
+/*   Created: 2024/02/17 04:30:11 by bazaluga          #+#    #+#             */
+/*   Updated: 2024/02/17 04:31:24 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/ft_printf.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+long	ft_atol(const char *nptr)
 {
-	unsigned char	*ptr;
-	size_t			i;
+	long	n;
+	int		sign;
+	size_t	i;
 
-	if (size > 0LL && nmemb > ULONG_MAX / size)
-		return (NULL);
-	ptr = (unsigned char *)malloc(nmemb * size);
-	if (!ptr)
-		return (NULL);
 	i = 0;
-	while (i < nmemb * size)
+	while (nptr[i] && ft_isspace(nptr[i]))
+		i++;
+	sign = 1;
+	if (nptr[i] && (nptr[i] == '-' || nptr[i] == '+'))
 	{
-		ptr[i] = '\0';
+		if (nptr[i] == '-')
+			sign = -1;
 		i++;
 	}
-	return ((void *)ptr);
+	n = 0;
+	while (nptr[i] && ft_isdigit(nptr[i]))
+	{
+		n = n * 10 + (nptr[i] - '0');
+		i++;
+	}
+	return (n * sign);
 }

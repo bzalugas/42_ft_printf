@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:29:26 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/17 04:04:20 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/17 05:48:46 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	*buff_clear(t_buffer **buf)
 	return (NULL);
 }
 
-static int	buffcpy(char *dst, t_buffer *buf)
+static size_t	buffcpy(char *dst, t_buffer *buf)
 {
 	int		tot;
 	t_node	*node;
@@ -50,14 +50,14 @@ static int	buffcpy(char *dst, t_buffer *buf)
 	return (tot);
 }
 
-int	buff_print(t_buffer *buf)
+size_t	buff_print(t_buffer *buf)
 {
 	char	*str;
 	ssize_t	ret;
 
 	if (!buf)
 		return (0);
-	str = (char *)ft_calloc(buf->tot_len + 1, sizeof(char));
+	str = (char *)ft_calloc(buf->tot_len + 1L, sizeof(char));
 	if (!str)
 		return (0);
 	if (buffcpy(str, buf) != buf->tot_len)
@@ -79,10 +79,16 @@ int	buff_print(t_buffer *buf)
 	return ((int)ret);
 }
 
-/* int	buff_update_len(size_t to_add) */
+/* int	buff_special_print(t_buffer *buf, int count) */
 /* { */
-/* 	static int	total = 0; */
+/* 	t_node	*node; */
 
-/* 	total += to_add; */
-/* 	return (total); */
+/* 	if (count > 0) */
+/* 		return (count); */
+/* 	node = buf->first; */
+/* 	while (node) */
+/* 	{ */
+/* 		write(1, (char *)node->content, node->len); */
+/* 		node = node->next; */
+/* 	} */
 /* } */

@@ -6,13 +6,13 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:58:25 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 22:45:43 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/17 05:55:16 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-t_node	*node_new(t_type type, int len, void *content)
+t_node	*node_new(t_type type, size_t len, void *content)
 {
 	t_node	*new;
 

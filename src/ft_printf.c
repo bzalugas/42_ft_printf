@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 23:39:50 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 21:55:31 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/17 05:43:25 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ static bool	parse(t_buffer *buf, char *str, int *i, va_list args)
 	}
 	else
 		++(*i);
-	if (!flags_get(&flags, str, i, args))
+	flags = flags_init();
+	if (!flags_get(flags, str, i, args))
 		return (false);
 	type = get_type(str[*i]);
 	if (type == ERR || !buff_add_back(buf, node_new(type, 0, flags)))
@@ -85,7 +86,7 @@ int	ft_printf(const char *format, ...)
 	va_list		args;
 	t_buffer	*buf;
 	char		*str;
-	int			count;
+	long		count;
 
 	if (!format)
 		return (-1);
@@ -95,12 +96,16 @@ int	ft_printf(const char *format, ...)
 	str = ft_strdup(format);
 	va_start(args, format);
 	if (tokenize(buf, str, args) == -1)
+	{
+		count = buff_print(buf);
 		return (va_end(args), buff_clear(&buf), -1);
+	}
 	if (!convert_buffer(buf, args))
 		return (va_end(args), buff_clear(&buf), -1);
 	count = buff_print(buf);
+	/* count = buff_special_print(buf, count); */
 	free(str);
 	buff_clear(&buf);
 	va_end(args);
-	return (count);
+	return ((int)count);
 }

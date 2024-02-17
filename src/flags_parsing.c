@@ -6,13 +6,13 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 07:57:58 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 21:56:31 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/17 04:47:53 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-static t_flags	*flags_init(void)
+t_flags	*flags_init(void)
 {
 	t_flags	*new;
 
@@ -58,24 +58,25 @@ static void	flags_from_char(t_flags *flags, char c)
 	flags->plus |= c == '+';
 }
 
-bool	flags_get(t_flags **flags, char *str, int *i, va_list args)
+bool	flags_get(t_flags *flags, char *str, int *i, va_list args)
 {
-	*flags = flags_init();
-	if (!*flags || !str[*i])
+	if (!flags || !str[*i])
 		return (false);
 	while (str[*i] && (ft_strchr(FLAGS, str[*i]) || ft_isdigit(str[*i])))
 	{
-		flags_from_char(*flags, str[*i]);
-		if (str[*i] == '*' && (*flags)->dot)
-			(*flags)->pad = flags_handle_star(*flags, str, i, args);
+		flags_from_char(flags, str[*i]);
+		if (str[*i] == '*' && flags->dot)
+			flags->pad = flags_handle_star(flags, str, i, args);
 		else if (str[*i] == '*')
-			(*flags)->width = flags_handle_star(*flags, str, i, args);
+			flags->width = flags_handle_star(flags, str, i, args);
 		else if (ft_isdigit(str[*i]) && str[*i] != '0')
 		{
-			if ((*flags)->dot)
-				(*flags)->pad = ft_atoi(&str[*i]);
+			if (flags->dot)
+				flags->pad = ft_atol(&str[*i]);
 			else
-				(*flags)->width = ft_atoi(&str[*i]);
+				flags->width = ft_atol(&str[*i]);
+			if (flags->pad > INT_MAX || flags->width > INT_MAX)
+				return (false);
 			while (str[*i] && ft_isdigit(str[*i]))
 				(*i)++;
 		}
