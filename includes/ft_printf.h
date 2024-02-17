@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:39:36 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/17 06:05:09 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/17 08:11:21 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,6 @@ size_t			buff_special_print(t_buffer *buf, int count);
 
 t_node			*node_get_next_conversion(t_node *node);
 t_node			*node_new(t_type type, size_t len, void *content);
-
-/* int				buff_update_len(size_t to_add); */
 
 /************************* FLAGS PARSING FUNCTIONS ****************************/
 

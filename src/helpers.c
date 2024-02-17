@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 22:48:46 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 23:23:32 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/17 08:16:55 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ bool	get_int_uint_adds(char **sp, char **zer, t_flags *f)
 		ft_memset(*zer, '0', f->pad);
 	return (true);
 }
+
+/* Helper for hex conversions */
 
 bool	get_hex_adds(char **sp, char **zer, t_flags *f)
 {

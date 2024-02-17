@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:29:26 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/17 05:48:46 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/17 08:11:42 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,17 +78,3 @@ size_t	buff_print(t_buffer *buf)
 	free(str);
 	return ((int)ret);
 }
-
-/* int	buff_special_print(t_buffer *buf, int count) */
-/* { */
-/* 	t_node	*node; */
-
-/* 	if (count > 0) */
-/* 		return (count); */
-/* 	node = buf->first; */
-/* 	while (node) */
-/* 	{ */
-/* 		write(1, (char *)node->content, node->len); */
-/* 		node = node->next; */
-/* 	} */
-/* } */
