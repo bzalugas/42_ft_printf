@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:29:26 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/17 02:53:32 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/17 04:04:20 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,20 @@ void	*buff_clear(t_buffer **buf)
 	return (NULL);
 }
 
-static size_t	buffcpy(char *dst, t_buffer *buf)
+static int	buffcpy(char *dst, t_buffer *buf)
 {
-	size_t	ret;
-	size_t	tot;
+	int		tot;
 	t_node	*node;
 
-	ret = 0;
 	tot = 0;
 	node = buf->first;
 	while (node)
 	{
 		if (node->len > 0)
 		{
-			ret = ft_strlcpy(dst + tot, (const char *)node->content, node->len + 1);
-			if (dst[tot] != 0 && ret != (size_t)node->len)
-				return (0);
-			tot += ret + (dst[tot] == 0);
+			if (!ft_memcpy(dst + tot, node->content, node->len))
+				return (tot);
+			tot += node->len;
 		}
 		node = node->next;
 	}
@@ -63,7 +60,7 @@ int	buff_print(t_buffer *buf)
 	str = (char *)ft_calloc(buf->tot_len + 1, sizeof(char));
 	if (!str)
 		return (0);
-	if (buffcpy(str, buf) != (size_t)buf->tot_len)
+	if (buffcpy(str, buf) != buf->tot_len)
 	{
 		free(str);
 		return (0);
