@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 22:53:43 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/17 02:05:05 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/17 02:13:45 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static bool	hex_put_add(t_buffer *buf, t_node *node, t_flags *f, char ox[3])
 	return (true);
 }
 
-static bool handle_flags_hex(t_buffer *buf, t_node *node, t_flags *f, int len)
+static bool	handle_flags_hex(t_buffer *buf, t_node *node, t_flags *f, int len)
 {
 	char	ox[3];
 

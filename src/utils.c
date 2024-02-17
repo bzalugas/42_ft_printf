@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:21:03 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/17 01:57:55 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/17 02:14:01 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ char	*ft_utohex_printf(unsigned long n, bool lower)
 	int		len;
 	char	*res;
 
-	/* len = len_uint_hex(n) + (sharp * 2); */
 	len = len_uint_hex(n);
 	res = (char *)ft_calloc(len + 1, sizeof(char));
 	if (!res)
