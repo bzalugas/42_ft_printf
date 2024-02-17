@@ -59,7 +59,7 @@ Behavior:
 - %X: blanks on the right
 - %-n.y(diuxX): total len of n, nb padded on left with zeros to obtain y chars
 - %p: blanks on the right
-- %%: blanks on the right
+- %%: nothing
 ** 0
 #+begin_quote
 The value should be zero padded. The converted value is padded on the left with zeros rather than blanks. *If the 0 and - flags both appear, the 0 is ignored.* If a precision given with d, i, o, u, x or X, 0 flag ignored. For other conversion, undefined behavior.
@@ -104,7 +104,7 @@ Behavior:
 - %X: blanks on the left
 - %n.y(diuxX): total len = n, padding of y
 - %p: blanks on the left
-- %%: blanks on the left
+- %%: nothing
 ** #
 #+begin_quote
 Value converted to an "alternate form". For x and X a nonzero result has 0x or 0X prepended to it.
