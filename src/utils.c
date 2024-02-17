@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:21:03 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/17 03:10:40 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/17 03:33:38 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static int	len_uint_hex(unsigned long n)
 	int	len;
 
 	len = 1;
-	while (n > 16)
+	while (n > 15)
 	{
 		n /= 16;
 		len++;

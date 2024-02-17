@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:41:39 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/17 02:59:22 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/17 03:50:45 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ static bool	handle_flags_str(t_buffer *buf, t_node *node, const char *str)
 		return (false);
 	ft_memset(add, ' ', len_add);
 	if (f->minus && f->width)
-		return (buff_add_after(buf, node, node_new(LIT, len_add, add)));
-	return (buff_add_before(buf, node, node_new(LIT, len_add, add)));
+		return (buff_add_after(buf, node, node_new(CONV, len_add, add)));
+	return (buff_add_before(buf, node, node_new(CONV, len_add, add)));
 }
 
 bool	handle_str(t_buffer *buf, t_node *node, const char *str)

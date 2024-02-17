@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 22:53:43 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/17 02:13:45 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/17 03:38:15 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ static bool	handle_flags_ptr(t_buffer *buf, t_node *node, t_flags *f, int len)
 {
 	f->zero = 0;
 	f->dot = 0;
-	f->sharp = 1;
 	f->minus &= f->width > len;
 	f->pad = 0;
 	f->width = (f->width - len) - 2;
@@ -96,7 +95,16 @@ bool	handle_ptr(t_buffer *buf, t_node *node, void *ptr)
 	int		len;
 
 	f = (t_flags *)node->content;
-	n = ft_utohex_printf((unsigned long)ptr, 1);
+	if (!ptr)
+	{
+		n = ft_strdup("(nil)");
+		f->sharp = 0;
+	}
+	else
+	{
+		n = ft_utohex_printf((unsigned long)ptr, 1);
+		f->sharp = 1;
+	}
 	if (!n)
 		return (false);
 	len = ft_strlen(n);
