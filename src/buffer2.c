@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:29:26 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 19:25:16 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/17 02:53:32 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,13 @@ static size_t	buffcpy(char *dst, t_buffer *buf)
 	node = buf->first;
 	while (node)
 	{
-		ret = ft_strlcpy(dst + tot, (const char *)node->content, node->len + 1);
-		if (ret != (size_t)node->len)
-			return (0);
-		tot += ret;
+		if (node->len > 0)
+		{
+			ret = ft_strlcpy(dst + tot, (const char *)node->content, node->len + 1);
+			if (dst[tot] != 0 && ret != (size_t)node->len)
+				return (0);
+			tot += ret + (dst[tot] == 0);
+		}
 		node = node->next;
 	}
 	return (tot);

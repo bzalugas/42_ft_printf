@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:41:39 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/17 02:10:49 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/17 02:59:22 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ bool	handle_char(t_buffer *buf, t_node *node, int c)
 	res[(len - 1 + minus) % len] = (unsigned char)c;
 	free(node->content);
 	node->content = res;
-	node->type = LIT;
+	node->type = CONV;
 	buf->tot_len += len;
 	node->len = len;
 	return (true);
@@ -66,14 +66,16 @@ bool	handle_str(t_buffer *buf, t_node *node, const char *str)
 {
 	t_flags	*f;
 
-	if (!handle_flags_str(buf, node, str))
+	if (str && !handle_flags_str(buf, node, str))
 		return (false);
 	f = (t_flags *)node->content;
-	if (f->dot)
+	if (str && f->dot)
 		node->content = ft_strndup(str, f->pad);
-	else
+	else if (str)
 		node->content = ft_strdup(str);
-	node->type = LIT;
+	else
+		node->content = ft_strdup("(null)");
+	node->type = CONV;
 	node->len = ft_strlen((char *)node->content);
 	buf->tot_len += node->len;
 	free(f);

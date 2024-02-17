@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:43:21 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/17 02:11:25 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/17 02:24:43 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,20 @@ static bool	convert_node(t_buffer *buf, t_node *node, va_list args)
 
 	if (((t_flags *)node->content)->n_star)
 		va_arg(args, int);
+	check = false;
 	if (node->type == CHAR)
 		check = handle_char(buf, node, va_arg(args, int));
-	if (node->type == STR)
+	else if (node->type == STR)
 		check = handle_str(buf, node, va_arg(args, const char *));
-	if (node->type == INT)
+	else if (node->type == INT)
 		check = handle_int(buf, node, va_arg(args, int));
-	if (node->type == UINT)
+	else if (node->type == UINT)
 		check = handle_uint(buf, node, va_arg(args, unsigned int));
-	if (node->type == LHEX || node->type == UHEX)
+	else if (node->type == LHEX || node->type == UHEX)
 		check = handle_hex(buf, node, va_arg(args, unsigned int));
-	if (node->type == PTR)
+	else if (node->type == PTR)
 		check = handle_ptr(buf, node, va_arg(args, void *));
-	if (node->type == PERCENT)
+	else if (node->type == PERCENT)
 		check = handle_percent(buf, node);
 	node->type = CONV;
 	return (check);
