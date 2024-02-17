@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:21:03 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/17 00:58:21 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/17 01:57:55 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +103,5 @@ char	*ft_utohex_printf(unsigned long n, bool lower)
 		n /= 16;
 		len--;
 	}
-	/* if (sharp) */
-	/* { */
-	/* 	res[0] = '0'; */
-	/* 	if (lower) */
-	/* 		res[1] = 'x'; */
-	/* 	else */
-	/* 		res[1] = 'X'; */
-	/* } */
 	return (res);
 }

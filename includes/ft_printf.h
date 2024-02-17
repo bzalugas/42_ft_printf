@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:39:36 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/17 00:58:10 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/17 02:11:21 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,11 @@ bool			convert_buffer(t_buffer *buf, va_list args);
 
 bool			handle_char(t_buffer *buf, t_node *node, int c);
 bool			handle_str(t_buffer *buf, t_node *node, const char *str);
+bool			handle_percent(t_buffer *buf, t_node *node);
 bool			handle_int(t_buffer *buf, t_node *node, int arg);
 bool			handle_uint(t_buffer *buf, t_node *node, unsigned int arg);
 bool			handle_hex(t_buffer *buf, t_node *node, unsigned int arg);
+bool			handle_ptr(t_buffer *buf, t_node *node, void *ptr);
 
 /********************************* FT_PRINTF **********************************/
 

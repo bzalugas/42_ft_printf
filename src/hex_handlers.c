@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 22:53:43 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/17 01:50:00 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/17 02:05:05 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,23 +77,34 @@ bool	handle_hex(t_buffer *buf, t_node *node, unsigned int arg)
 	return (true);
 }
 
-/* static bool	handle_flags_ptr(t_buffer *buf, t_node *node, t_flags *f, int len) */
-/* { */
-/* 	f->zero = 0; */
-/* 	f->dot = 0; */
-/* 	f->minus &= f->width > len; */
+static bool	handle_flags_ptr(t_buffer *buf, t_node *node, t_flags *f, int len)
+{
+	f->zero = 0;
+	f->dot = 0;
+	f->sharp = 1;
+	f->minus &= f->width > len;
+	f->pad = 0;
+	f->width = (f->width - len) - 2;
+	f->width *= (f->width > 0);
+	return (hex_put_add(buf, node, f, "0x"));
+}
 
-/* } */
+bool	handle_ptr(t_buffer *buf, t_node *node, void *ptr)
+{
+	char	*n;
+	t_flags	*f;
+	int		len;
 
-/* bool	handle_ptr(t_buffer *buf, t_node *node, void *ptr) */
-/* { */
-/* 	char	*n; */
-/* 	t_flags	*f; */
-/* 	int		len; */
-
-/* 	f = (t_flags *)node->content; */
-/* 	n = ft_utohex_printf((unsigned long)ptr, 1); */
-/* 	if (!n) */
-/* 		return (false); */
-/* 	len = ft_strlen(n); */
-/* } */
+	f = (t_flags *)node->content;
+	n = ft_utohex_printf((unsigned long)ptr, 1);
+	if (!n)
+		return (false);
+	len = ft_strlen(n);
+	if (!handle_flags_ptr(buf, node, f, len))
+		return (false);
+	free(node->content);
+	node->content = n;
+	node->len = len;
+	buf->tot_len += node->len;
+	return (true);
+}

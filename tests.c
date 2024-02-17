@@ -47,13 +47,15 @@ int	tests()
 
 int	main(void)
 {
-	/* if (!tests()) */
-	/* { */
-	/* 	printf("\n\nERROR\n"); */
-	/* 	return (1); */
-	/* } */
-	/* printf("\n\nALL GOOD\n"); */
-	ft_printf("%.2s | %s\n", "abc", "def");
+	if (!tests())
+	{
+		printf("\n\nERROR\n");
+		return (1);
+	}
+	printf("\n\nALL GOOD\n");
+	/* ft_printf("%.2s | %s\n", "abc", "def"); */
 	/* printf("%.2s | %s\n", "abc", "def"); */
+	/* printf("%+%|\n"); */
+	/* ft_printf("%#5X|\n",123); */
 	return (0);
 }

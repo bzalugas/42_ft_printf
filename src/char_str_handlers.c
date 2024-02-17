@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:41:39 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 21:56:03 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/17 02:10:49 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,16 @@ bool	handle_str(t_buffer *buf, t_node *node, const char *str)
 	node->len = ft_strlen((char *)node->content);
 	buf->tot_len += node->len;
 	free(f);
+	return (true);
+}
+
+bool	handle_percent(t_buffer *buf, t_node *node)
+{
+	free(node->content);
+	node->content = ft_strdup("%");
+	if (!node->content)
+		return (false);
+	node->len = 1;
+	buf->tot_len += 1;
 	return (true);
 }
