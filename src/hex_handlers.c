@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 22:53:43 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/17 03:38:15 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/17 04:15:51 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ bool	handle_hex(t_buffer *buf, t_node *node, unsigned int arg)
 	if (!n)
 		return (false);
 	len = ft_strlen(n);
+	f->sharp &= arg > 0;
 	if (!handle_flags_hex(buf, node, f, len))
 		return (false);
 	free(node->content);

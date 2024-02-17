@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:21:03 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/17 03:33:38 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/17 04:24:36 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*ft_itoa_printf(int n, t_flags *f)
 	n2 = n;
 	if (n2 < 0)
 		n2 *= -1;
-	size = len_long(n2) + (((f->space || f->plus) && n > 0) || n < 0);
+	size = len_long(n2) + (((f->space || f->plus) && n >= 0) || n < 0);
 	nb = (char *)ft_calloc(size + 1, sizeof(char));
 	if (!nb)
 		return (NULL);
