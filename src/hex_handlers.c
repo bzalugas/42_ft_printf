@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 22:53:43 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/17 04:15:51 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/17 07:07:06 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ bool	handle_hex(t_buffer *buf, t_node *node, unsigned int arg)
 	n = ft_utohex_printf(arg, node->type == LHEX);
 	if (!n)
 		return (false);
+	if (f->dot && f->pad == 0 && arg == 0)
+		n[0] = '\0';
 	len = ft_strlen(n);
 	f->sharp &= arg > 0;
 	if (!handle_flags_hex(buf, node, f, len))
@@ -84,7 +86,7 @@ static bool	handle_flags_ptr(t_buffer *buf, t_node *node, t_flags *f, int len)
 	f->dot = 0;
 	f->minus &= f->width > len;
 	f->pad = 0;
-	f->width = (f->width - len) - 2;
+	f->width = (f->width - len) - (f->sharp * 2);
 	f->width *= (f->width > 0);
 	return (hex_put_add(buf, node, f, "0x"));
 }

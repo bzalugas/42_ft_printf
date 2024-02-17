@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 18:16:24 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 23:21:16 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/17 06:52:00 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,23 @@ bool	handle_int(t_buffer *buf, t_node *node, int arg)
 	char	*n;
 	t_flags	*f;
 
+	n = NULL;
 	f = (t_flags *)node->content;
-	n = ft_itoa_printf(arg, f);
-	if (!n)
-		return (false);
-	if (!handle_flags_int(buf, node, f, n))
-		return (false);
-	if ((arg < 0 || f->plus || f->space) && (f->pad || f->zero))
-		n[0] = '0';
+	if (f->dot && f->pad == 0 && arg == 0)
+	{
+		if (!handle_flags_int(buf, node, f, ""))
+			return (false);
+	}
+	else
+	{
+		n = ft_itoa_printf(arg, f);
+		if (!n)
+			return (false);
+		if (!handle_flags_int(buf, node, f, n))
+			return (false);
+		if ((arg < 0 || f->plus || f->space) && (f->pad || f->zero))
+			n[0] = '0';
+	}
 	free(node->content);
 	node->content = n;
 	node->len = ft_strlen(n);

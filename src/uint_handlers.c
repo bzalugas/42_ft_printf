@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 22:10:42 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/16 23:21:04 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/17 07:01:55 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,14 @@ bool	handle_uint(t_buffer *buf, t_node *node, unsigned int arg)
 	n = ft_utoa_printf(arg);
 	if (!n)
 		return (false);
+	if (f->dot && f->pad == 0 && arg == 0)
+		n[0] = '\0';
 	len = ft_strlen(n);
 	if (!handle_flags_uint(buf, node, f, len))
 		return (false);
 	free(node->content);
 	node->content = n;
-	node->len = len;
+	node->len = ft_strlen(n);
 	buf->tot_len += node->len;
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:41:39 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/17 03:50:45 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/17 06:43:36 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,17 @@ bool	handle_str(t_buffer *buf, t_node *node, const char *str)
 {
 	t_flags	*f;
 
-	if (str && !handle_flags_str(buf, node, str))
+	if (!str && !handle_flags_str(buf, node, "(null)"))
+		return (false);
+	else if (str && !handle_flags_str(buf, node, str))
 		return (false);
 	f = (t_flags *)node->content;
 	if (str && f->dot)
 		node->content = ft_strndup(str, f->pad);
 	else if (str)
 		node->content = ft_strdup(str);
+	else if (!str && f->pad < 6 && f->pad > 0)
+		node->content = ft_strdup("");
 	else
 		node->content = ft_strdup("(null)");
 	node->type = CONV;
