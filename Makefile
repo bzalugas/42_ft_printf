@@ -6,7 +6,7 @@
 #    By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 22:53:55 by bazaluga          #+#    #+#              #
-#    Updated: 2024/02/17 06:04:59 by bazaluga         ###   ########.fr        #
+#    Updated: 2024/02/17 07:40:16 by bazaluga         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -58,18 +58,22 @@ RESET		:=	"\033[0m"
 all:		$(NAME)
 
 $(OBJDIR)/%.o:	$(SRCDIR)/%.c
-		$(CC) $(CFLAGS) -I$(INCLUDE) -I$(LIBFTDIR)/ -o $@ -c $<
+		@echo $(GREEN)"Compiling "$<$(RESET)
+		@$(CC) $(CFLAGS) -I$(INCLUDE) -I$(LIBFTDIR)/ -o $@ -c $<
 
 $(OBJDIR):
 		mkdir -p $(OBJDIR)
 
 $(LIBFT):
 		@echo $(GREEN)"Compiling libft"$(RESET)
-		make -C $(LIBFTDIR)
+		@make -C $(LIBFTDIR)
+		@echo $(GREEN)
 		cp $(LIBFT) $(NAME)
+		@echo $(RESET)
 
 $(NAME):	$(LIBFT) $(OBJDIR) $(OBJ)
-		ar -rcs $(NAME) $(OBJ)
+		@echo $(GREEN)"\nAdding obj files to lib"$(RESET)
+		@ar -rcs $(NAME) $(OBJ)
 
 bonus:		$(OBJ)
 		ar -rcs $(NAME) $(OBJ)
@@ -77,14 +81,19 @@ bonus:		$(OBJ)
 -include	$(OBJD)
 
 clean:
-		rm -f $(OBJ)
-		rm -f $(OBJD)
+		@echo $(RED)"CLEANING OBJS"$(RESET)
+		@rm -f $(OBJ)
+		@rm -f $(OBJD)
+		@make -sC libft clean
 
 fclean:		clean
-		rm -f $(NAME)
-		rm -f *.out
-		rm -f $(LIBFT)
-		rm -rf *.dSYM
+		@echo $(RED)"CLEANING ALL"$(RESET)
+		@rm -f $(NAME)
+		@rm -f *.out
+		@rm -f $(LIBFT)
+		@rm -rf *.dSYM
+		@make -sC libft fclean
+
 re:		fclean
 		make all
 

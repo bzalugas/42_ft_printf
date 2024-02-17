@@ -6,7 +6,7 @@
 #    By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/04 16:22:14 by bazaluga          #+#    #+#              #
-#    Updated: 2024/02/09 02:21:31 by bazaluga         ###   ########.fr        #
+#    Updated: 2024/02/17 07:38:14 by bazaluga         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -35,35 +35,19 @@ CFLAGS	=	-Wall -Wextra -Werror
 all:		$(NAME)
 
 .c.o:
-			$(CC) $(CFLAGS) -o $(<:.c=.o) -c $<
+			@$(CC) $(CFLAGS) -o $(<:.c=.o) -c $<
 
 
 $(NAME):	$(OBJ)
-			ar -rcs $(NAME) $(OBJ)
-
-ifneq ($(shell uname), Darwin)
-breaker:
-			$(CC) -nostartfiles -shared -fPIC -ldl $(CFLAGS) -o libft.so $(SRC) $(SRCB)
-else
-breaker:
-			$(CC) -dynamiclib $(CFLAGS) -o libft.so $(SRC) $(SRCB) -L../obj -lmalloc
-endif
-
-ifneq ($(shell uname), Darwin)
-so:
-			$(CC) -nostartfiles -shared -fPIC -ldl $(CFLAGS) -o libft.so $(SRC) $(SRCB)
-else
-so:
-			$(CC) -dynamiclib $(CFLAGS) -o libft.so $(SRC) $(SRCB) -L../obj -lmalloc
-endif
+			@ar -rcs $(NAME) $(OBJ)
 
 clean:
-			rm -f $(OBJ)
+			@rm -f $(OBJ)
 
 fclean:		clean
-			rm -f $(NAME)
-			rm -f *.out
-			rm -f libft.so
+			@rm -f $(NAME)
+			@rm -f *.out
+			@rm -f libft.so
 
 re:			fclean all
 
