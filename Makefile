@@ -6,7 +6,7 @@
 #    By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 22:53:55 by bazaluga          #+#    #+#              #
-#    Updated: 2024/02/17 07:40:16 by bazaluga         ###   ########.fr        #
+#    Updated: 2024/02/19 19:31:49 by bazaluga         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -57,7 +57,7 @@ RESET		:=	"\033[0m"
 
 all:		$(NAME)
 
-$(OBJDIR)/%.o:	$(SRCDIR)/%.c
+$(OBJDIR)/%.o:	$(SRCDIR)/%.c | $(OBJDIR)
 		@echo $(GREEN)"Compiling "$<$(RESET)
 		@$(CC) $(CFLAGS) -I$(INCLUDE) -I$(LIBFTDIR)/ -o $@ -c $<
 
@@ -71,12 +71,11 @@ $(LIBFT):
 		cp $(LIBFT) $(NAME)
 		@echo $(RESET)
 
-$(NAME):	$(LIBFT) $(OBJDIR) $(OBJ)
+$(NAME):	$(LIBFT) $(OBJ)
 		@echo $(GREEN)"\nAdding obj files to lib"$(RESET)
 		@ar -rcs $(NAME) $(OBJ)
 
-bonus:		$(OBJ)
-		ar -rcs $(NAME) $(OBJ)
+bonus:		$(NAME)
 
 -include	$(OBJD)
 
