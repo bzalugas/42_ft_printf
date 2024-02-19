@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 22:48:46 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/17 08:16:55 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/19 15:59:35 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 bool	get_int_uint_adds(char **sp, char **zer, t_flags *f)
 {
 	if (f->width)
-		*sp = (char *)ft_calloc(f->width, sizeof(char));
+		*sp = (char *)ft_calloc(f->width + 1, sizeof(char));
 	if (f->pad)
-		*zer = (char *)ft_calloc(f->pad, sizeof(char));
+		*zer = (char *)ft_calloc(f->pad + 1, sizeof(char));
 	if (!*sp && f->width && *zer)
 	{
 		free(*zer);
@@ -46,9 +46,9 @@ bool	get_int_uint_adds(char **sp, char **zer, t_flags *f)
 bool	get_hex_adds(char **sp, char **zer, t_flags *f)
 {
 	if (f->width)
-		*sp = (char *)ft_calloc(f->width, sizeof(char));
+		*sp = (char *)ft_calloc(f->width + 1, sizeof(char));
 	if (f->pad)
-		*zer = (char *)ft_calloc(f->pad, sizeof(char));
+		*zer = (char *)ft_calloc(f->pad + 1, sizeof(char));
 	if (!*sp && f->width && *zer)
 	{
 		free(*zer);

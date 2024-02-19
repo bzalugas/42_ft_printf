@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 23:39:50 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/17 07:12:56 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/19 13:13:23 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ int	ft_printf(const char *format, ...)
 	if (!buf)
 		return (-1);
 	str = ft_strdup(format);
+	if (!str)
+		return (-1);
 	va_start(args, format);
 	if (tokenize(buf, str, args) == -1)
 	{
