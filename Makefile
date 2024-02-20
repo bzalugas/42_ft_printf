@@ -6,7 +6,7 @@
 #    By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 22:53:55 by bazaluga          #+#    #+#              #
-#    Updated: 2024/02/19 19:31:49 by bazaluga         ###   ########.fr        #
+#    Updated: 2024/02/20 16:09:27 by bazaluga         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -47,7 +47,7 @@ LIBFT		:=	$(LIBFTDIR)/$(LIBFTNAME)
 
 CC		:=	cc
 
-CFLAGS		:=	-Wall -Wextra -Werror -MMD -g3
+CFLAGS		:=	-Wall -Wextra -Werror -MMD
 
 ########### COLORS ##########
 
