@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:29:26 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/17 08:11:42 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/02/20 12:21:18 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	*buff_clear(t_buffer **buf)
 	t_node	*tmp;
 	t_node	*tmp2;
 
+	if (!buf || !*buf)
+		return (NULL);
 	tmp = (*buf)->first;
 	while (tmp)
 	{
