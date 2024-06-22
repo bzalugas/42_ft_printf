@@ -6,7 +6,7 @@
 #    By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 22:53:55 by bazaluga          #+#    #+#              #
-#    Updated: 2024/02/20 16:09:27 by bazaluga         ###   ########.fr        #
+#    Updated: 2024/06/22 12:43:41 by bazaluga         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -23,7 +23,7 @@ LIBFTDIR	:=	libft
 SRC		:=	ft_printf.c node.c buffer.c buffer2.c flags_parsing.c \
 			utils.c convert_buffer.c char_str_handlers.c \
 			helpers.c int_handlers.c uint_handlers.c hex_handlers.c \
-			ft_atol.c
+			ft_atol.c float_handlers.c ft_ftoa_printf.c
 
 OBJ		:=	$(SRC:.c=.o)
 

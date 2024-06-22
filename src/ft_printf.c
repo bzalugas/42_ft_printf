@@ -6,7 +6,7 @@
 /*   By: bazaluga <bazaluga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 23:39:50 by bazaluga          #+#    #+#             */
-/*   Updated: 2024/02/20 12:22:26 by bazaluga         ###   ########.fr       */
+/*   Updated: 2024/06/22 12:53:11 by bazaluga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static t_type	get_type(char c)
 		return (UHEX);
 	if (c == 'p')
 		return (PTR);
+	if (c == 'f')
+		return (FLOAT);
 	if (c == '%')
 		return (PERCENT);
 	return (ERR);
